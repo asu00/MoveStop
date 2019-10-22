@@ -161,8 +161,6 @@ namespace OneButton
             }
             for (int i = 0; i < prPosBase.Length; i++)
             {
-
-
                 if (!prDrawF[i]) continue;
                 sb.Draw(prickle, new Vector2(prPosBase[i].X, prPosBase[i].Y - sc), Color.White);
             }

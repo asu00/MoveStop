@@ -56,6 +56,8 @@
     <Compile Include="Size.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UI_Button.cs" />
+    <Compile Include="Ranking.cs" />
+    <Compile Include="Time.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

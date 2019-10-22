@@ -13,7 +13,6 @@ namespace OneButton
     class Bar
     {
         Texture2D bar;
-
         readonly Vector2 barPos = new Vector2(8, 32);
         readonly Vector2 barSize = new Vector2(320, 32);
         const int ITEM_MAX = 5;
