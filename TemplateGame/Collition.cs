@@ -32,6 +32,19 @@ namespace OneButton
             return false;
         }
 
+        public int ItemColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize,bool[] nowGet) //アイテム
+        {
+            for (int i = 0; i < othrerPos.Length; i++)
+            {
+                if (nowGet[i]) continue;
+                Vector2 oPos = othrerPos[i];
+
+                if (pPos.X + pR > oPos.X && pPos.X - pR < oPos.X + oSize.X && pPos.Y + pR > oPos.Y && pPos.Y - pR < oPos.Y + oSize.Y)
+                    return i;
+            }
+            return -1;
+        }
+
         public bool EnemyColl(Vector2 pPos, int pR, Vector2 oPos, Vector2 oSize) //敵　上だけ
         {
 

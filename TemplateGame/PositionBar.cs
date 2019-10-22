@@ -46,7 +46,7 @@ namespace OneButton
         }
         public void Draw(SpriteBatch sb)
         {
-            //sb.Draw(bartex, barpos, Color.White);
+            sb.Draw(bartex, barpos, Color.White);
             sb.Draw(playertex, playerbarpos, Color.White); 
         }
     }

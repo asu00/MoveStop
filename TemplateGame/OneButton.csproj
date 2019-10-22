@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Anime.cs" />
+    <Compile Include="Bar.cs" />
     <Compile Include="Collition.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />

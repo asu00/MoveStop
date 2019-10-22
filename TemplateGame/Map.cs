@@ -17,7 +17,7 @@ namespace OneButton
         Texture2D prickle;
         const int PR_SPEED = 2;
         bool[] prDrawF;
-        Vector2 prSize = new Vector2(120, 32);//針の部分のサイズ
+        readonly Vector2 prSize = new Vector2(120, 32);//針の部分のサイズ
         readonly Vector2[] prPosBase = { new Vector2(0, 400), new Vector2(400, 600) };
         Vector2[] prPos;
         public Vector2[] PrPos => prPos;
@@ -27,7 +27,7 @@ namespace OneButton
         Texture2D floor;
         bool[] floorDrawF;
         const int F_SPEED = 2;
-        Vector2 fSize = new Vector2(196,32);
+        readonly Vector2 fSize = new Vector2(196, 32);
         readonly Vector2[] floorPosBase = { new Vector2(300, 800), new Vector2(200, 2200) };
         Vector2[] floorPos; //書き込み用
         float[] movePos;
@@ -42,11 +42,20 @@ namespace OneButton
             RIGHT = 1,
             LEFT = -1,
         }
-        readonly Dir[] floorDirBase = { Dir.LEFT , Dir.RIGHT };
+        readonly Dir[] floorDirBase = { Dir.LEFT, Dir.RIGHT };
         int[] fd; //書き込み用
         readonly Dir[] prDirBase = { Dir.LEFT, Dir.RIGHT };
         int[] prd; //書き込み用
 
+        //アイテム
+        Texture2D item;
+        readonly Vector2 iSize = new Vector2(64, 64);
+        public Vector2 ISize => iSize;
+        readonly Vector2[] itemPosBase = { new Vector2(200, 500) };
+        Vector2[] itemPos;
+        public Vector2[] ItemPos => itemPos;
+        bool[] inowGet, inowDraw;
+        public bool[] InowGet => inowGet;
 
         public Map()
         {
@@ -74,12 +83,22 @@ namespace OneButton
             }
             movePos = new float[floorPosBase.Length];
 
+            //アイテム
+            itemPos = itemPosBase;
+            inowDraw = new bool[itemPosBase.Length];
+            inowGet = new bool[itemPosBase.Length];
+            for (int i = 0; i < itemPosBase.Length; i++)
+            {
+                inowDraw[i] = false;
+                inowGet[i] = false;
+            }
         }
 
         public void Load(ContentManager content)
         {
             prickle = content.Load<Texture2D>("Prickle");
             floor = content.Load<Texture2D>("Floor");
+            item = content.Load<Texture2D>("item");
         }
 
         public void FlagChange(Vector2 pPos)
@@ -98,6 +117,13 @@ namespace OneButton
                 else
                     prDrawF[i] = false;
             }
+            for (int i = 0; i < itemPosBase.Length; i++)
+            {
+                if (64 * 15 > itemPos[i].Y - pPos.Y && -(64 * 15) < itemPos[i].Y - pPos.Y)
+                    inowDraw[i] = true;
+                else
+                    inowDraw[i] = false;
+            }
         }
         public void FloorMove(int wid)
         {
@@ -106,7 +132,7 @@ namespace OneButton
                 if (!floorDrawF[i]) continue;
                 movePos[i] = fd[i] * F_SPEED;
                 floorPos[i].X += movePos[i];
-                if (floorPos[i].X+fSize.X > wid || floorPos[i].X < 0) fd[i] = -fd[i]; //反転
+                if (floorPos[i].X + fSize.X > wid || floorPos[i].X < 0) fd[i] = -fd[i]; //反転
             }
             for (int i = 0; i < prPosBase.Length; i++)
             {
@@ -116,22 +142,30 @@ namespace OneButton
             }
         }
 
+        public void ItemGet(int i)
+        {
+            inowGet[i] = true;
+        }
+
         public void Draw(SpriteBatch sb, int sc)
         {
-            for (int i = 0; i < floorPos.Length; i++)
+            for (int i = 0; i < floorPosBase.Length; i++)
             {
-                Debug.WriteLine("F"+i+":"+floorDrawF[i]);
                 if (!floorDrawF[i]) continue;
                 sb.Draw(floor, new Vector2(floorPos[i].X, floorPos[i].Y - sc), Color.White);
             }
             for (int i = 0; i < prPosBase.Length; i++)
             {
-                Debug.WriteLine("P" + i + ":" + prDrawF[i]);
+
 
                 if (!prDrawF[i]) continue;
                 sb.Draw(prickle, new Vector2(prPosBase[i].X, prPosBase[i].Y - sc), Color.White);
             }
-
+            for (int i = 0; i < itemPosBase.Length; i++)
+            {
+                if (!inowDraw[i] || inowGet[i]) continue;
+                sb.Draw(item, new Vector2(itemPos[i].X, itemPos[i].Y - sc), Color.White);
+            }
         }
     }
 }

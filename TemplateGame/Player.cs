@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using System;
 
 namespace OneButton
 {
@@ -11,15 +12,15 @@ namespace OneButton
         Size size = new Size();
         const int SIZE_PLAYER = 64;
 
-        Vector2 pos,posPre;//※※
+        Vector2 pos, posPre;//※※
         int speed;
-       const int RUDIOS = 32;
+        const int RUDIOS = 32;
 
         //***
         const int HIGH_SPEED = 6;
         const int NORMAL_SPEED = 2;
         int sc;
-        bool drop,accele;
+        bool drop, accele;
         public bool DropF => drop;
 
         public int SC { get { return sc; } }
@@ -27,7 +28,7 @@ namespace OneButton
         public Vector2 PosPre { get { return posPre; } }//※※
         public int R => RUDIOS;
 
-        enum State { drop, fly,stop,acccel,dead}//※※
+        enum State { drop, fly, stop, acccel, dead }//※※
         State state;//※※
         State statePre;//※※
 
@@ -38,17 +39,16 @@ namespace OneButton
         public Player() { Ini(); }
         public void Ini()
         {
-            pos = new Vector2(size.Width/2 - SIZE_PLAYER/2,0);
+            pos = new Vector2(size.Width / 2 - SIZE_PLAYER / 2, 0);
             posPre = new Vector2(size.Width / 2 - SIZE_PLAYER / 2, 0);//※※
             state = State.drop;//※※
             statePre = state;//※※
-            //***
             speed = HIGH_SPEED;
             sc = 0;
-            drop = true ;
+            drop = true;
             accele = false;
         }
-        
+
         public void Update(Key key)
         {
             posPre = pos;
@@ -60,6 +60,7 @@ namespace OneButton
         {
             if (key.TwoPush) accele = true;
             if (accele)
+
             {
                 drop = true;
                 //***

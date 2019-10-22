@@ -19,7 +19,7 @@ namespace OneButton
         private GraphicsDeviceManager graphicsDeviceManager;//グラフィックスデバイスを管理するオブジェクト
         private SpriteBatch spriteBatch;//画像をスクリーン上に描画するためのオブジェクト
 
-        Size size= new Size();
+        Size size = new Size();
         Player player;
         Key key;
         Map map;
@@ -27,10 +27,11 @@ namespace OneButton
         PositionBar positionBar;
         Enemy enemy;
 
-        UI_Button button;//※※
-        Anime anime;//※※
-        UI ui;//※※
-        Scene_Count sceneCount;//※※
+        UI_Button button;
+        Anime anime;
+        UI ui;
+        Scene_Count sceneCount;
+        Bar bar;
 
         enum Scene { title, tutlial, play, end ,retry}
         Scene scene;
@@ -60,17 +61,17 @@ namespace OneButton
             coll = new Collition();
             positionBar = new PositionBar();
             enemy = new Enemy();
-
             button = new UI_Button();//※※
             anime = new Anime();//※※
             ui = new UI();//※※
             sceneCount = new Scene_Count();//※※
-
+            bar = new Bar();
             Ini();
             base.Initialize();// 親クラスの初期化処理呼び出し。絶対に消すな！！
         }
         public void Ini()
         {
+            bar.Init();
         }
         /// <summary>
         /// コンテンツデータ（リソースデータ）の読み込み処理
@@ -84,13 +85,13 @@ namespace OneButton
             // この下にロジックを記述
             anime.Load(Content);
             map.Load(Content);
-            //***
             positionBar.Load(Content);
             enemy.Load(Content);
 
             button.Load(Content);//※※
             ui.Load(Content,GraphicsDevice);//※※
             
+            bar.Load(Content);
             // この上にロジックを記述
         }
 
@@ -143,10 +144,11 @@ namespace OneButton
                         map.FlagChange(player.Pos);
                         player.Update(key);
 
-                        if (coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize) != -1 && player.DropF)
+                        int fi = coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize);
+                        int ii = coll.ItemColl(player.Pos, player.R, map.ItemPos, map.ISize, map.InowGet);
+                        if (fi != -1 && player.DropF)
                         {
-                            int i = coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize);
-                            player.FloorMove(map.MovePos[i]);
+                            player.FloorMove(map.MovePos[fi]);
                         }
                         if (coll.PrColl(player.Pos, player.R, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
                         {
@@ -160,6 +162,12 @@ namespace OneButton
                     anime.Lights(player.PosPre,player.SC,player.Ac);//※※
                     anime.Pre(player.St,player.StPre);//※※
                     if (sceneCount.Change(anime.Dead)) scene = Scene.retry;//※※
+
+                    if (ii != -1)
+                    {
+                        map.ItemGet(ii);
+                        bar.GetItem();
+                    }
                     break;
                     //※※↓
                 case Scene.retry:
@@ -214,6 +222,8 @@ namespace OneButton
                     positionBar.Draw(spriteBatch);
                     //***
                     ui.Draw(spriteBatch,player.SC);
+                    bar.Draw(spriteBatch);
+
                     break;
                 case Scene.retry:
                     ui.Draw_Lose(spriteBatch);
@@ -222,6 +232,7 @@ namespace OneButton
                     button.Draw(spriteBatch);//※※
                     break;
             }
+
             spriteBatch.End();
 
             base.Draw(gameTime); // 親クラスの更新処理呼び出し。絶対に消すな！！
