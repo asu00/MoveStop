@@ -59,6 +59,11 @@ namespace OneButton
 
         public Map()
         {
+            Init();
+        }
+
+        public void Init()
+        {
             prDrawF = new bool[prPosBase.Length];
             for (int i = 0; i < prPosBase.Length; i++)
             {

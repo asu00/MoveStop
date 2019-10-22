@@ -13,9 +13,8 @@ namespace OneButton
     class Bar
     {
         Texture2D bar;
-        Texture2D barBg;
 
-        readonly Vector2 barPos = new Vector2(20, 20);
+        readonly Vector2 barPos = new Vector2(8, 32);
         readonly Vector2 barSize = new Vector2(320, 32);
         const int ITEM_MAX = 5;
         int ITEM_UP;
@@ -31,8 +30,7 @@ namespace OneButton
         }
         public void Load(ContentManager c)
         {
-            bar = c.Load<Texture2D>("barP");
-            barBg = c.Load<Texture2D>("barBg");
+            bar = c.Load<Texture2D>("gage");
         }
         public void GetItem()
         {
