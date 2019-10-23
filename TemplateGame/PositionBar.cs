@@ -37,7 +37,6 @@ namespace OneButton
             enemyBarTex = content.Load<Texture2D>("posbar");
         }
 
-
         public void Update(Vector2 playerPos, Vector2 enemyPos, int enemySize)
         {
             Calcu(playerPos);
@@ -54,7 +53,6 @@ namespace OneButton
         }
         public void Draw(SpriteBatch sb)
         {
-            //sb.Draw(bartex, barpos, Color.White);
             sb.Draw(playertex, playerbarpos, Color.White);
             sb.Draw(enemyBarTex, enemyBarPos, Color.White);
         }

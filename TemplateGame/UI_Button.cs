@@ -24,7 +24,7 @@ namespace OneButton
         }
         public void Load(ContentManager content)
         {
-            button = content.Load<Texture2D>("ui_button");
+            button = content.Load<Texture2D>("button");
         }
         public void Button()
         {
@@ -36,7 +36,7 @@ namespace OneButton
         }
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(button, new Vector2(size.Win_Width / 2 - button.Width / 2, size.Height - button.Height*3), Color.White * alpha[(int)Alpha.alpha]);
+            sb.Draw(button, new Vector2(size.Win_Width / 2 - button.Width / 2, size.Height - button.Height*2), Color.White * alpha[(int)Alpha.alpha]);
         }
     }
 }

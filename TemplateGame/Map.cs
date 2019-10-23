@@ -64,6 +64,7 @@ namespace OneButton
 
         public void Init()
         {
+
             prDrawF = new bool[prPosBase.Length];
             for (int i = 0; i < prPosBase.Length; i++)
             {
@@ -101,8 +102,8 @@ namespace OneButton
 
         public void Load(ContentManager content)
         {
-            prickle = content.Load<Texture2D>("Prickle");
-            floor = content.Load<Texture2D>("Floor");
+            prickle = content.Load<Texture2D>("thornber");
+            floor = content.Load<Texture2D>("ber");
             item = content.Load<Texture2D>("item");
         }
 

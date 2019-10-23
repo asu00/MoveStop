@@ -20,12 +20,13 @@ namespace OneButton
         const int HIGH_SPEED = 6;
         const int NORMAL_SPEED = 2;
         int sc;
-        bool drop, accele;
+        bool drop, accele, accelePre;
+
         public bool DropF => drop;
 
         public int SC { get { return sc; } }
         public Vector2 Pos { get { return pos; } }
-        public Vector2 PosPre { get { return posPre; } }
+        public Vector2 PosPre { get { return posPre; } } 
         public int R => RUDIOS;
 
         enum State { drop, fly, stop, acccel, dead }
@@ -35,6 +36,7 @@ namespace OneButton
         public int St { get { return (int)state; } }
         public int StPre { get { return (int)statePre; } }
         public bool Ac { get { return accele; } }
+        public bool AcPre { get { return accelePre; } }
 
         public Player() { Ini(); }
         public void Ini()
@@ -47,6 +49,7 @@ namespace OneButton
             sc = 0;
             drop = true;
             accele = false;
+            accelePre = accele;
         }
 
         public void Update(Key key, Func<bool> Accele)
@@ -58,12 +61,12 @@ namespace OneButton
         }
         public void KeyPushMove(Key key, Func<bool> Accele)
         {
+            accelePre = accele;
             if (key.TwoPush) accele = true;
             if (accele && Accele())
 
             {
                 drop = true;
-
                 speed = HIGH_SPEED;
             }
 
