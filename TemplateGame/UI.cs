@@ -16,8 +16,8 @@ namespace OneButton
         const int SIZE = 64;//※※
 
         Texture2D head, wall, posber;
-        Texture2D title, tutlial, retry, end, back;
-        Texture2D lights, character;
+        Texture2D title, tutlial, retry, end,back;
+        Texture2D lights, character,goal;
         Vector2[] pos = new Vector2[2];
 
         bool move;

@@ -12,7 +12,7 @@ namespace OneButton
         const int CELL = 64;
         const int WIDTH = CELL * 9;
         const int HEIGHT = CELL * 15;
-        const int WIN_WIDTH = WIDTH + CELL;//32はプレイ画面外のUI分
+        const int WIN_WIDTH = WIDTH + CELL;
         const int UNDER = HEIGHT - CELL * 6;
 
         const int WORLD = 3000;

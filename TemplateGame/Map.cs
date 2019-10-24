@@ -27,7 +27,7 @@ namespace OneButton
         Texture2D floor;
         bool[] floorDrawF;
         const int F_SPEED = 2;
-        readonly Vector2 fSize = new Vector2(196, 32);
+        readonly Vector2 fSize = new Vector2(192, 32);
         readonly Vector2[] floorPosBase = { new Vector2(300, 800), new Vector2(200, 2200) };
         Vector2[] floorPos; //書き込み用
         float[] movePos;

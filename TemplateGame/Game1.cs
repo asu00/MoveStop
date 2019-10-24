@@ -192,8 +192,9 @@ namespace OneButton
                     }
                     break;
                 case Scene.retry:
+                    button.Button();
                     key.Update();
-                    key.Update();
+                    key.Re();
                     if (ui.Scene_Change(key.IsPushKey))
                     {
                         if (key.Re() == 1) scene = Scene.title;
@@ -238,7 +239,6 @@ namespace OneButton
                     ui.Draw_Tutlial(spriteBatch);
                     break;
                 case Scene.play:
-                    anime.Draw(spriteBatch, player.Pos, player.SC, player.St);
                     map.Draw(spriteBatch, player.SC);
                     enemy.Draw(spriteBatch, player.SC);
 
@@ -246,9 +246,11 @@ namespace OneButton
                     positionBar.Draw(spriteBatch);
                     bar.Draw(spriteBatch);
                     time.Draw(spriteBatch);
+                    anime.Draw(spriteBatch, player.Pos, player.SC, player.St);
                     ui.Draw_Back(spriteBatch);
                     break;
                 case Scene.retry:
+                    button.Draw(spriteBatch);
                     ui.Draw_Lose(spriteBatch);
                     break;
                 case Scene.end:
