@@ -147,7 +147,7 @@ namespace OneButton
         }
         public void Lights_Emission()//※※
         {
-            if (scale[(int)name.lights] >= 1) sca[(int)name.lights] = -0.003f;
+            if (scale[(int)name.lights] >= 1.1f) sca[(int)name.lights] = -0.003f;
             else if (scale[(int)name.lights] <= 0.9f) sca[(int)name.lights] = 0.003f;
             scale[(int)name.lights] += sca[(int)name.lights];
             if (alpha_Lights >= 1) alphaNum_Lights = -0.01f;

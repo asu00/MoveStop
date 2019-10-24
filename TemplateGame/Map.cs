@@ -17,7 +17,7 @@ namespace OneButton
         Texture2D prickle;
         const int PR_SPEED = 2;
         bool[] prDrawF;
-        readonly Vector2 prSize = new Vector2(120, 32);//針の部分のサイズ
+        readonly Vector2 prSize = new Vector2(192, 32);//針の部分のサイズ
         readonly Vector2[] prPosBase = { new Vector2(0, 400), new Vector2(400, 600) };
         Vector2[] prPos;
         public Vector2[] PrPos => prPos;
@@ -27,7 +27,7 @@ namespace OneButton
         Texture2D floor;
         bool[] floorDrawF;
         const int F_SPEED = 2;
-        readonly Vector2 fSize = new Vector2(196, 32);
+        readonly Vector2 fSize = new Vector2(192, 32);
         readonly Vector2[] floorPosBase = { new Vector2(300, 800), new Vector2(200, 2200) };
         Vector2[] floorPos; //書き込み用
         float[] movePos;
