@@ -21,6 +21,7 @@ namespace OneButton
         const int NORMAL_SPEED = 2;
         int sc;
         bool drop, accele, accelePre;
+        bool goal;
 
         public bool DropF => drop;
 
@@ -50,6 +51,7 @@ namespace OneButton
             drop = true;
             accele = false;
             accelePre = accele;
+            goal = false;
         }
 
         public void Update(Key key, Func<bool> Accele)
@@ -64,13 +66,16 @@ namespace OneButton
             accelePre = accele;
             if (key.TwoPush) accele = true;
             if (accele && Accele())
-
             {
                 drop = true;
                 speed = HIGH_SPEED;
             }
 
-            else speed = NORMAL_SPEED;
+            else
+            {
+                speed = NORMAL_SPEED;
+                accele = false;
+            }
             if (key.OnePush)
             {
                 switch (drop)
@@ -105,6 +110,11 @@ namespace OneButton
         public void DeadFlag()
         {
             state = State.dead;
+        }
+        public bool GoalFlag()
+        {
+            if (pos.Y >= size.World) goal = true;
+            return goal;
         }
     }
 }

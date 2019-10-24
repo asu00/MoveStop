@@ -72,13 +72,17 @@ namespace OneButton
             time = new Time();
             ranking = new Ranking();
 
-            Ini();
+            Init();
             base.Initialize();// 親クラスの初期化処理呼び出し。絶対に消すな！！
         }
-        public void Ini()
+        public void Init()
         {
             map.Init();
             bar.Init();
+            player.Ini();
+            enemy.Init();
+            anime.Ini();
+            ui.Ini();
         }
         /// <summary>
         /// コンテンツデータ（リソースデータ）の読み込み処理
@@ -180,10 +184,11 @@ namespace OneButton
                     }
                     anime.Update(player.St, player.StPre, player.Pos, player.SC, player.Ac, player.AcPre);
 
-                    if (ui.Scene_Change(sceneCount.Change(anime.Dead)))//※※
+                    if (ui.Scene_Change(sceneCount.Change(anime.Dead || player.GoalFlag())))
                     {
-                        key.Ini();//※※
-                        scene = Scene.retry;
+                        key.Ini();
+                        if(!anime.Dead) scene = Scene.end;
+                        else scene = Scene.retry;
                     }
                     break;
                 case Scene.retry:
@@ -193,25 +198,24 @@ namespace OneButton
                     {
                         if (key.Re() == 1) scene = Scene.title;
                         else scene = Scene.play;
-                        pp();
+                        Init();
                     }
                     break;
                 case Scene.end:
+                    ui.End();
                     button.Button();
-                    if (key.IsPushKey) scene = Scene.title;
+                    if (ui.Scene_Change(key.IsPushKey))
+                    {
+                        scene = Scene.title;
+                        Init();
+                    }
                     break;
             }
             Debug.WriteLine(scene);
             // この上にロジックを記述
             base.Update(gameTime); // 親クラスの更新処理呼び出し。絶対に消すな！！
         }
-        public void pp()//※※
-        {
-            player.Ini();
-            enemy.Init();
-            anime.Ini();
-            ui.Ini();
-        }
+ 
         /// <summary>
         /// 描画処理
         /// </summary>
@@ -226,14 +230,12 @@ namespace OneButton
             switch (scene)
             {
                 case Scene.title:
-                    ui.Draw_Anime(spriteBatch);
-                    ui.Draw_Title(spriteBatch);
                     button.Draw(spriteBatch);
+                    ui.Draw_Title(spriteBatch);
                     break;
                 case Scene.tutlial:
-                    ui.Draw_Anime(spriteBatch);
-                    ui.Draw_Tutlial(spriteBatch);
                     button.Draw(spriteBatch);
+                    ui.Draw_Tutlial(spriteBatch);
                     break;
                 case Scene.play:
                     anime.Draw(spriteBatch, player.Pos, player.SC, player.St);
@@ -244,16 +246,14 @@ namespace OneButton
                     positionBar.Draw(spriteBatch);
                     bar.Draw(spriteBatch);
                     time.Draw(spriteBatch);
-                    ui.Draw_Back(spriteBatch);//※※
+                    ui.Draw_Back(spriteBatch);
                     break;
                 case Scene.retry:
                     ui.Draw_Lose(spriteBatch);
-                    ui.Draw_Back(spriteBatch);//※※
                     break;
                 case Scene.end:
-                    ui.Draw_Anime(spriteBatch);
-                    ui.Draw_End(spriteBatch);
                     button.Draw(spriteBatch);
+                    ui.Draw_End(spriteBatch);
                     break;
             }
             spriteBatch.End();

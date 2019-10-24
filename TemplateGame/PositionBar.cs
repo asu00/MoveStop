@@ -25,16 +25,16 @@ namespace OneButton
 
         public void Init()
         {
-            playerbarpos = new Vector2(size.Width + 24, 0);
+            playerbarpos = new Vector2(size.Width+16 , 0);
             barpos = new Vector2(size.Width + 16, 0);
-            enemyBarPos = new Vector2(size.Width + 24, 0);
+            enemyBarPos = new Vector2(size.Width + 16, 0);
         }
 
         public void Load(ContentManager content)
         {
-            playertex = content.Load<Texture2D>("posbar");
+            playertex = content.Load<Texture2D>("pos_player");
             bartex = content.Load<Texture2D>("bar");
-            enemyBarTex = content.Load<Texture2D>("posbar");
+            enemyBarTex = content.Load<Texture2D>("pos_enemy");
         }
 
         public void Update(Vector2 playerPos, Vector2 enemyPos, int enemySize)

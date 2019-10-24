@@ -65,7 +65,7 @@ namespace OneButton
         public void Load(ContentManager content)
         {
             player = content.Load<Texture2D>("player");
-            maru = content.Load<Texture2D>("maru");
+            maru = content.Load<Texture2D>("light");
             lights = content.Load<Texture2D>("lights");
         }
         public void Update(int state,int statePre, Vector2 playerPos, int sc, bool accel,bool accelePre)//※※
@@ -170,7 +170,7 @@ namespace OneButton
             else Pnum = MIN_LIGHT;
             for (int i = 0; i < Pnum; i++)
             {
-                pos.Add(new Vector2(rnd.Next((int)playerPos.X - RUDIOS, (int)(playerPos.X - RUDIOS) + SIZE_PLAYER - maru.Width), rnd.Next((int)playerPos.Y - 48, (int)playerPos.Y - RUDIOS + (SIZE_PLAYER - SIZE_PLAYER / 4))));
+                pos.Add(new Vector2(rnd.Next((int)playerPos.X - RUDIOS, (int)(playerPos.X - RUDIOS) + SIZE_PLAYER - maru.Width), rnd.Next((int)playerPos.Y - SIZE_PLAYER/2, (int)playerPos.Y - RUDIOS + (SIZE_PLAYER - SIZE_PLAYER / 4))));
                 hp.Add(HP_LIGHT);
                 ppx.Add(0);
                 ppy.Add(0);
