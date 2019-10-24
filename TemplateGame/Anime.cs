@@ -21,6 +21,7 @@ namespace OneButton
         const int NEW_COUNT_10 = 10;
         const int NEW_COUNT_30 = 30;
 
+        const int TIME_LIGHT = 40;
         const int HP_LIGHT = 30;
         const int MAX_LIGHT = 3;
         const int MIN_LIGHT = 1;
@@ -64,7 +65,7 @@ namespace OneButton
         public void Load(ContentManager content)
         {
             player = content.Load<Texture2D>("player");
-            maru = content.Load<Texture2D>("maru");
+            maru = content.Load<Texture2D>("light");
             lights = content.Load<Texture2D>("lights");
         }
         public void Update(int state,int statePre, Vector2 playerPos, int sc, bool accel,bool accelePre)//※※
@@ -95,11 +96,6 @@ namespace OneButton
                     }
                     break;
                 case (int)State.fly://浮遊から落下
-                    //if (state == (int)State.drop)
-                    //{
-                    //    y = (int)tex.dropPre;
-                    //    x = 0;
-                    //}
                     if (state == (int)State.stop)
                     {
                         y = (int)tex.stop;
@@ -119,6 +115,7 @@ namespace OneButton
                     }
                     break;
             }
+
             if (!accelePre && accele)
             {
                 y = (int)tex.dropPre;
@@ -166,23 +163,14 @@ namespace OneButton
             y = (int)tex.dead;
             x = 0;
         }
-        //public void Enemy()
-        //{
-        //    count[(int)name.enemy]--;
-        //    if(count[(int)name.enemy] <= 0)
-        //    {
-        //        enemy_x++;
-        //        //if(enemy_x >= enemy.Width/)enemy_x = 0;
-        //        count[(int)name.enemy] = NEW_COUNT_30;
-        //    }
-        //}
+
         public void Lights_Bone(Vector2 playerPos,bool accel)//※※
         {
             if (accel) Pnum = MAX_LIGHT;
             else Pnum = MIN_LIGHT;
             for (int i = 0; i < Pnum; i++)
             {
-                pos.Add(new Vector2(rnd.Next((int)playerPos.X - RUDIOS, (int)(playerPos.X - RUDIOS) + SIZE_PLAYER - maru.Width), rnd.Next((int)playerPos.Y - 48, (int)playerPos.Y - RUDIOS + (SIZE_PLAYER - SIZE_PLAYER / 4))));
+                pos.Add(new Vector2(rnd.Next((int)playerPos.X - RUDIOS, (int)(playerPos.X - RUDIOS) + SIZE_PLAYER - maru.Width), rnd.Next((int)playerPos.Y - SIZE_PLAYER/2, (int)playerPos.Y - RUDIOS + (SIZE_PLAYER - SIZE_PLAYER / 4))));
                 hp.Add(HP_LIGHT);
                 ppx.Add(0);
                 ppy.Add(0);
@@ -212,8 +200,7 @@ namespace OneButton
         {
             if (!dead)
             {
-                for (int i = 0; i < this.pos.Count; i++) sb.Draw(maru, new Vector2(this.pos[i].X + ppx[i], this.pos[i].Y - sc - ppy[i]), Color.LightGreen);//パーティクル
-                //※※↓
+                for (int i = 0; i < this.pos.Count; i++) sb.Draw(maru, new Vector2(this.pos[i].X + ppx[i], this.pos[i].Y - sc - ppy[i]), Color.White);//パーティクル
                 sb.Draw(lights, new Vector2(pos.X - RUDIOS - SIZE_PLAYER / 2, pos.Y - RUDIOS - SIZE_PLAYER / 2 - sc) + new Vector2(64,64), new Rectangle(0, 0, 128, 128), Color.White*alpha_Lights, 0.0f, new Vector2(64, 64), scale[(int)name.lights], SpriteEffects.None, 1.0f);
                 sb.Draw(player, new Vector2(pos.X - RUDIOS, pos.Y - RUDIOS - sc)+new Vector2(SIZE_PLAYER/2,SIZE_PLAYER/2), new Rectangle(SIZE_PLAYER * x, SIZE_PLAYER * y, SIZE_PLAYER, SIZE_PLAYER), Color.White,0.0f,new Vector2(SIZE_PLAYER/2,SIZE_PLAYER/2),scale[(int)name.chara], SpriteEffects.None,1.0f);//動作確認
             }

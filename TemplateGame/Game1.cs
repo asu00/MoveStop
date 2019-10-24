@@ -19,7 +19,7 @@ namespace OneButton
         private GraphicsDeviceManager graphicsDeviceManager;//グラフィックスデバイスを管理するオブジェクト
         private SpriteBatch spriteBatch;//画像をスクリーン上に描画するためのオブジェクト
 
-        Size size= new Size();
+        Size size = new Size();
         Player player;
         Key key;
         Map map;
@@ -27,12 +27,16 @@ namespace OneButton
         PositionBar positionBar;
         Enemy enemy;
 
-        UI_Button button;//※※
-        Anime anime;//※※
-        UI ui;//※※
-        Scene_Count sceneCount;//※※
+        UI_Button button;
+        Anime anime;
+        UI ui;
+        Scene_Count sceneCount;
+        Bar bar;
 
-        enum Scene { title, tutlial, play, end ,retry}
+        enum Scene { title, tutlial, play, end, retry }
+        Time time;
+        Ranking ranking;
+
         Scene scene;
 
         /// <summary>
@@ -60,17 +64,21 @@ namespace OneButton
             coll = new Collition();
             positionBar = new PositionBar();
             enemy = new Enemy();
-
-            button = new UI_Button();//※※
-            anime = new Anime();//※※
-            ui = new UI();//※※
-            sceneCount = new Scene_Count();//※※
+            button = new UI_Button();
+            anime = new Anime();
+            ui = new UI();
+            sceneCount = new Scene_Count();
+            bar = new Bar();
+            time = new Time();
+            ranking = new Ranking();
 
             Ini();
             base.Initialize();// 親クラスの初期化処理呼び出し。絶対に消すな！！
         }
         public void Ini()
         {
+            map.Init();
+            bar.Init();
         }
         /// <summary>
         /// コンテンツデータ（リソースデータ）の読み込み処理
@@ -84,13 +92,15 @@ namespace OneButton
             // この下にロジックを記述
             anime.Load(Content);
             map.Load(Content);
-            //***
             positionBar.Load(Content);
             enemy.Load(Content);
 
-            button.Load(Content);//※※
-            ui.Load(Content,GraphicsDevice);//※※
-            
+            button.Load(Content);
+            ui.Load(Content, GraphicsDevice);
+
+            bar.Load(Content);
+            time.Load(Content);
+            ranking.Load(Content);
             // この上にロジックを記述
         }
 
@@ -129,26 +139,30 @@ namespace OneButton
                 case Scene.title:
                     button.Button();
                     if (ui.Scene_Change(ui.Title(key.IsPushKey))) scene = Scene.tutlial;//※※
+
                     break;
                 case Scene.tutlial:
                     button.Button();
                     if (ui.Scene_Change(ui.Tutlial(key.IsPushKey))) scene = Scene.play;
                     break;
                 case Scene.play:
-                    if(player.St != 4)
+                    if (player.St != 4)
                     {
                         ui.Scroll(player.SC);
                         key.Update();
                         enemy.Update();
-                        positionBar.Update(player.Pos);
+                        time.Updae(player.Pos);
+                        ranking.Update(player.Pos, time.StopTime);
+                        positionBar.Update(player.Pos, enemy.Pos, (int)enemy.Size.Y);
                         map.FloorMove(size.Width);
                         map.FlagChange(player.Pos);
-                        player.Update(key);
+                        player.Update(key, bar.Accele);
 
-                        if (coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize) != -1 && player.DropF)
+                        int fi = coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize);
+                        int ii = coll.ItemColl(player.Pos, player.R, map.ItemPos, map.ISize, map.InowGet);
+                        if (fi != -1 && player.DropF)
                         {
-                            int i = coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize);
-                            player.FloorMove(map.MovePos[i]);
+                            player.FloorMove(map.MovePos[fi]);
                         }
                         if (coll.PrColl(player.Pos, player.R, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
                         {
@@ -158,30 +172,39 @@ namespace OneButton
                         }
                         else if (!(coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize) != -1 && player.DropF))
                             player.Drop();
+                        if (ii != -1)
+                        {
+                            map.ItemGet(ii);
+                            bar.GetItem();
+                        }
                     }
-                    anime.Update(player.St,player.StPre,player.Pos,player.SC,player.Ac,player.AcPre);
-                    //anime.Lights(player.PosPre,player.SC,player.Ac);
-                    //anime.Pre(player.St,player.StPre);
-                    if (ui.Scene_Change(sceneCount.Change(anime.Dead)))//※※
+                    anime.Update(player.St, player.StPre, player.Pos, player.SC, player.Ac, player.AcPre);
+
+                    if (ui.Scene_Change(sceneCount.Change(anime.Dead || player.GoalFlag())))
                     {
-                        key.Ini();//※※
-                        scene = Scene.retry;
+                        key.Ini();
+                        if(!anime.Dead) scene = Scene.end;
+                        else scene = Scene.retry;
                     }
                     break;
                 case Scene.retry:
-                    //※※↓
                     key.Update();
-                    if(ui.Scene_Change(key.IsPushKey))
+                    key.Update();
+                    if (ui.Scene_Change(key.IsPushKey))
                     {
                         if (key.Re() == 1) scene = Scene.title;
                         else scene = Scene.play;
                         pp();
                     }
-                    //※※↑
                     break;
                 case Scene.end:
+                    ui.End();
                     button.Button();
-                    if (key.IsPushKey) scene = Scene.title;
+                    if (ui.Scene_Change(key.IsPushKey))
+                    {
+                        scene = Scene.title;
+                        pp();
+                    }
                     break;
             }
             Debug.WriteLine(scene);
@@ -209,31 +232,30 @@ namespace OneButton
             switch (scene)
             {
                 case Scene.title:
-                    ui.Draw_Anime(spriteBatch);
-                    ui.Draw_Title(spriteBatch);
                     button.Draw(spriteBatch);
+                    ui.Draw_Title(spriteBatch);
                     break;
                 case Scene.tutlial:
-                    ui.Draw_Anime(spriteBatch);
-                    ui.Draw_Tutlial(spriteBatch);
                     button.Draw(spriteBatch);
+                    ui.Draw_Tutlial(spriteBatch);
                     break;
                 case Scene.play:
-                    anime.Draw(spriteBatch,player.Pos,player.SC,player.St);
+                    anime.Draw(spriteBatch, player.Pos, player.SC, player.St);
                     map.Draw(spriteBatch, player.SC);
-                    enemy.Draw(spriteBatch,player.SC);
+                    enemy.Draw(spriteBatch, player.SC);
+
+                    ui.Draw(spriteBatch, player.SC);
                     positionBar.Draw(spriteBatch);
-                    ui.Draw(spriteBatch,player.SC);
-                    ui.Draw_Back(spriteBatch);//※※
+                    bar.Draw(spriteBatch);
+                    time.Draw(spriteBatch);
+                    ui.Draw_Back(spriteBatch);
                     break;
                 case Scene.retry:
                     ui.Draw_Lose(spriteBatch);
-                    ui.Draw_Back(spriteBatch);//※※
                     break;
                 case Scene.end:
-                    ui.Draw_Anime(spriteBatch);
-                    ui.Draw_End(spriteBatch);
                     button.Draw(spriteBatch);
+                    ui.Draw_End(spriteBatch);
                     break;
             }
             spriteBatch.End();

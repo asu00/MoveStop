@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Anime.cs" />
+    <Compile Include="Bar.cs" />
     <Compile Include="Collition.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Game1.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="Size.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UI_Button.cs" />
+    <Compile Include="Ranking.cs" />
+    <Compile Include="Time.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

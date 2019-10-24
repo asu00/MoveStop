@@ -40,6 +40,7 @@ namespace OneButton
             for (int i = 0; i < KIND_OF_KEY; i++) key[i] = false;
             for (int i = 0; i < KIND_OF_FlAG; i++) flag[i] = false;
             for (int i = 0; i < KIND_OF_NUM; i++) num[i] = 0;
+
             i = 0;//※※
         }
         public void Update()
@@ -52,8 +53,8 @@ namespace OneButton
         {
             isPushKey = false;
 
-            flag[(int)name_flag.onePush] = false;
-            flag[(int)name_flag.twoPush] = false;
+            flag[(int)name_flag.onePush] = false; flag[(int)name_flag.twoPush] = false;
+
             key[(int)name_key.pre] = key[(int)name_key.now];
             KeyboardState keyboard_Sp = Keyboard.GetState();
             key[(int)name_key.now] = keyboard_Sp.IsKeyDown(Keys.Space);

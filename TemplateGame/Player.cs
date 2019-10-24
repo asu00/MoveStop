@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using System;
 
 namespace OneButton
 {
@@ -11,23 +12,25 @@ namespace OneButton
         Size size = new Size();
         const int SIZE_PLAYER = 64;
 
-        Vector2 pos,posPre;
+        Vector2 pos, posPre;
         int speed;
-       const int RUDIOS = 32;
+        const int RUDIOS = 32;
 
-        //***
+
         const int HIGH_SPEED = 6;
         const int NORMAL_SPEED = 2;
         int sc;
-        bool drop,accele,accelePre;
+        bool drop, accele, accelePre;
+        bool goal;
+
         public bool DropF => drop;
 
         public int SC { get { return sc; } }
         public Vector2 Pos { get { return pos; } }
-        public Vector2 PosPre { get { return posPre; } }
+        public Vector2 PosPre { get { return posPre; } } 
         public int R => RUDIOS;
 
-        enum State { drop, fly,stop,acccel,dead}
+        enum State { drop, fly, stop, acccel, dead }
         State state;
         State statePre;
 
@@ -39,36 +42,39 @@ namespace OneButton
         public Player() { Ini(); }
         public void Ini()
         {
-            pos = new Vector2(size.Width/2 - SIZE_PLAYER/2,0);
+            pos = new Vector2(size.Width / 2 - SIZE_PLAYER / 2, 0);
             posPre = new Vector2(size.Width / 2 - SIZE_PLAYER / 2, 0);
             state = State.drop;
             statePre = state;
-            //***
             speed = HIGH_SPEED;
             sc = 0;
-            drop = true ;
+            drop = true;
             accele = false;
             accelePre = accele;
+            goal = false;
         }
-        public void Update(Key key)
+
+        public void Update(Key key, Func<bool> Accele)
         {
             posPre = pos;
             statePre = state;
-            KeyPushMove(key);
+            KeyPushMove(key, Accele);
             if (!drop) state = State.fly;
         }
-        public void KeyPushMove(Key key)
+        public void KeyPushMove(Key key, Func<bool> Accele)
         {
             accelePre = accele;
             if (key.TwoPush) accele = true;
-            if (accele)
+            if (accele && Accele())
             {
                 drop = true;
-                //***
                 speed = HIGH_SPEED;
             }
-            //***
-            else speed = NORMAL_SPEED;
+            else
+            {
+                speed = NORMAL_SPEED;
+                accele = false;
+            }
             if (key.OnePush)
             {
                 switch (drop)
@@ -103,6 +109,11 @@ namespace OneButton
         public void DeadFlag()
         {
             state = State.dead;
+        }
+        public bool GoalFlag()
+        {
+            if (pos.Y >= size.World) goal = true;
+            return goal;
         }
     }
 }
