@@ -17,8 +17,8 @@ namespace OneButton
         Texture2D prickle;
         const int PR_SPEED = 2;
         bool[] prDrawF;
-        readonly Vector2 prSize = new Vector2(120, 32);//針の部分のサイズ
-        readonly Vector2[] prPosBase = { new Vector2(0, 400), new Vector2(400, 600) };
+        readonly Vector2 prSize = new Vector2(192, 32);//針の部分のサイズ
+        readonly Vector2[] prPosBase = { new Vector2(32, 400), new Vector2(300, 600) };
         Vector2[] prPos;
         public Vector2[] PrPos => prPos;
         public Vector2 PrSize => prSize;
@@ -138,13 +138,13 @@ namespace OneButton
                 if (!floorDrawF[i]) continue;
                 movePos[i] = fd[i] * F_SPEED;
                 floorPos[i].X += movePos[i];
-                if (floorPos[i].X + fSize.X > wid || floorPos[i].X < 0) fd[i] = -fd[i]; //反転
+                if (floorPos[i].X + fSize.X > wid-32 || floorPos[i].X < 32) fd[i] = -fd[i]; //反転
             }
             for (int i = 0; i < prPosBase.Length; i++)
             {
                 if (!prDrawF[i]) continue;
                 prPos[i].X += prd[i] * PR_SPEED;
-                if (prPos[i].X + PrSize.X > wid || prPos[i].X < 0) prd[i] = -prd[i]; //反転
+                if (prPos[i].X + PrSize.X > wid - 32 || prPos[i].X < 32) prd[i] = -prd[i]; //反転
             }
         }
 
