@@ -13,7 +13,7 @@ namespace OneButton
         const int NEW_COUNT_30 = 30;
         const int NEW_COUNT_10 = 10;
         const int SPEED = 8;
-        const int SIZE = 64;//※※
+        const int SIZE = 64;  
 
         Texture2D head, wall, posber;
         Texture2D title, tutlial, retry, end,back;
@@ -24,12 +24,12 @@ namespace OneButton
 
         float alpha;
         //public bool Move { get { return move; } }
-        Vector2[] pos_Lights = new Vector2[2];//※※
-        float[] alpha_Lights = new float[2];//※※
-        int count;//※※
-        int x, y;//※※
-        Vector2 player = new Vector2(0, 0);//※※
-        bool tut;//※※
+        Vector2[] pos_Lights = new Vector2[2];  
+        float[] alpha_Lights = new float[2];  
+        int count;  
+        int x, y;  
+        Vector2 player = new Vector2(0, 0);  
+        bool tut;  
 
         public UI() { Ini(); }
         public void Ini()
@@ -40,10 +40,10 @@ namespace OneButton
             for (int i = 0; i < 2; i++) alpha_Lights[i] = 1;
             pos_Lights[0] = new Vector2(0, size.Height / 2);
             pos_Lights[1] = new Vector2(0, size.Height / 2 + 200);
-            x = 0; y = 0;//※※
-            count = NEW_COUNT_30;//※※
-            player = new Vector2(size.Width / 2 - SIZE / 2, 400);//※※
-            tut = false;//※※
+            x = 0; y = 0;  
+            count = NEW_COUNT_30;  
+            player = new Vector2(size.Width / 2 - SIZE / 2, 400);  
+            tut = false;  
         }
         public void Load(ContentManager content, GraphicsDevice graphicsDevice)
         {
@@ -81,7 +81,7 @@ namespace OneButton
         }
 
 
-        public bool Title(bool key)//※※
+        public bool Title(bool key)  
         {
             Moving();
             bool flag = false;
@@ -98,7 +98,7 @@ namespace OneButton
             }
             return flag;
         }
-        public void Moving()//※※
+        public void Moving()  
         {
             count--;
             if (count <= 0)
@@ -113,7 +113,7 @@ namespace OneButton
                 else count = NEW_COUNT_30;
             }
         }
-        public bool Tutlial(bool key)//※※
+        public bool Tutlial(bool key)  
         {
             Moving();
             bool flag = false;
@@ -138,7 +138,7 @@ namespace OneButton
             player = new Vector2(size.Win_Width / 2 - SIZE / 2, 576);
             Moving();
         }
-        public void Anime()//※※
+        public void Anime()  
         {
             for (int i = 0; i < 2; i++)
             {
@@ -152,7 +152,7 @@ namespace OneButton
         {
             sb.Draw(back, new Rectangle(0, 0, size.Win_Width, size.Height), Color.White * alpha);
         }
-        public void Draw_Anime(SpriteBatch sb)//※※
+        public void Draw_Anime(SpriteBatch sb)  
         {
             sb.Draw(wall, new Vector2(-32, pos[0].Y), Color.White);
             sb.Draw(wall, new Vector2(size.Win_Width - wall.Width / 2, pos[0].Y), new Rectangle(0, 0, wall.Width, wall.Height), Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 1.0f);
@@ -163,14 +163,14 @@ namespace OneButton
             sb.Draw(wall, new Vector2(-32, pos[0].Y), Color.White);
             sb.Draw(wall, new Vector2(size.Win_Width - wall.Width / 2, pos[0].Y), new Rectangle(0, 0, wall.Width, wall.Height), Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 1.0f);
         }
-        public void Draw_Title(SpriteBatch sb)//※※
+        public void Draw_Title(SpriteBatch sb)  
         {
             Draw_Anime(sb);
             sb.Draw(title, Vector2.Zero, Color.White);
             sb.Draw(character, player, new Rectangle(SIZE * x, SIZE * y, SIZE, SIZE), Color.White);
             Draw_Back(sb);
         }
-        public void Draw_Tutlial(SpriteBatch sb)//※※
+        public void Draw_Tutlial(SpriteBatch sb)  
         {
             Draw_Anime(sb);
             sb.Draw(character, player, new Rectangle(SIZE * x, SIZE * y, SIZE, SIZE), Color.White);
@@ -189,7 +189,6 @@ namespace OneButton
             Draw_Anime(sb);
             sb.Draw(end,Vector2.Zero, Color.White);
             sb.Draw(character, player, new Rectangle(SIZE * x, SIZE * y, SIZE, SIZE), Color.White);
-            Draw_Back(sb);
         }
         public void Draw(SpriteBatch sb, int sc)
         {

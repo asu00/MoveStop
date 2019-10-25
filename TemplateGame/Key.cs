@@ -25,7 +25,7 @@ namespace OneButton
         bool isPushKey;//keyが押されたか否か(1フレ)
 
         int count;
-        int i;//※※
+        int i;  
 
         public bool OnePush { get { return flag[(int)name_flag.onePush]; } }
         public bool TwoPush { get { return flag[(int)name_flag.twoPush]; } }
@@ -41,13 +41,13 @@ namespace OneButton
             for (int i = 0; i < KIND_OF_FlAG; i++) flag[i] = false;
             for (int i = 0; i < KIND_OF_NUM; i++) num[i] = 0;
 
-            i = 0;//※※
+            i = 0;  
         }
         public void Update()
         {
             Push_Long();
             Push_One_Two();
-            Re();//※※
+            Re();  
         }
         public void Push_Triger()//スペースkeyのトリガー
         {
@@ -93,7 +93,7 @@ namespace OneButton
             }
             Debug.WriteLine("push"+num[(int)name_num.push_Num]+"flag"+ flag[(int)name_flag.onePush]+ flag[(int)name_flag.twoPush]);
         }
-        public int Re()//※※
+        public int Re()  
         {
             if (flag[(int)name_flag.onePush]) i = 1;
             if (flag[(int)name_flag.twoPush]) i = 2;

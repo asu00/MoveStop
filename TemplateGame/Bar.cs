@@ -20,6 +20,7 @@ namespace OneButton
         int nowItem;
         const int AC_SPEED=2;
         int nowBar;
+        public Bar() { Init(); }
 
         public void Init()
         {

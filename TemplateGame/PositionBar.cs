@@ -45,11 +45,15 @@ namespace OneButton
 
         public void Calcu(Vector2 playerpos)
         {
-            playerbarpos.Y = size.Height * playerpos.Y / size.World;
+            playerbarpos.Y = (size.Height - 32) * playerpos.Y / size.World;
+            if (playerpos.Y <= 0) playerbarpos.Y = 0;
+            if (playerpos.Y >= size.World) playerbarpos.Y = size.Height-34;
         }
         public void Calcu(Vector2 enemyPos, int enemySize)
         {
-            enemyBarPos.Y = size.Height * (enemyPos.Y + enemySize) / size.World;
+            enemyBarPos.Y = (size.Height+32) * (enemyPos.Y + enemySize) / size.World;
+            if (enemyPos.Y+enemySize <= 0) enemyBarPos.Y = 0;
+            if (enemyPos.Y >= size.World) enemyBarPos.Y = size.Height-34;
         }
         public void Draw(SpriteBatch sb)
         {

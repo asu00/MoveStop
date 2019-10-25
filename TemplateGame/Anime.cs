@@ -27,32 +27,32 @@ namespace OneButton
         const int MIN_LIGHT = 1;
         const float SPEED_LIGHT = 0.4f;
 
-        Texture2D player,enemy,maru,lights;
-        
+        Texture2D player, enemy, maru, lights;
+
         int enemy_x, enemy_y;
 
-        enum State { drop, fly, stop, accele,dead}
-        enum tex { dropPre,drop,flyPre,fly,stop,dead}
-        enum name { chara,lights}
-        int x,y;
+        enum State { drop, fly, stop, accele, dead }
+        enum tex { dropPre, drop, flyPre, fly, stop, dead }
+        enum name { chara, lights }
+        int x, y;
         int count;
         int Pnum;
-        float[] scale = new float[2];//※※
-        float[] sca = new float[2];//※※
-        float alpha_Lights;//※※
-        float alphaNum_Lights;//※※
+        float[] scale = new float[2];  
+        float[] sca = new float[2];  
+        float alpha_Lights;  
+        float alphaNum_Lights;  
         bool dead;
         public Anime() { Ini(); }
         public bool Dead { get { return dead; } }
         public void Ini()
         {
             enemy_x = 0; enemy_y = 0;
-            x = 0;y = 0;
-            for(int  i = 0; i < 2; i++) scale[i] = 1.0f;//※※
-            sca[(int)name.chara] = 0.04f;//※※
-            sca[(int)name.lights] = 0.02f;//※※
-            alpha_Lights = 1;//※※
-            alphaNum_Lights = 0.01f;//※※
+            x = 0; y = 0;
+            for (int i = 0; i < 2; i++) scale[i] = 1.0f;  
+            sca[(int)name.chara] = 0.04f;  
+            sca[(int)name.lights] = 0.02f;  
+            alpha_Lights = 1;  
+            alphaNum_Lights = 0.01f;  
             count = NEW_COUNT_10;
             Pnum = MIN_LIGHT;
             dead = false;
@@ -68,9 +68,9 @@ namespace OneButton
             maru = content.Load<Texture2D>("light");
             lights = content.Load<Texture2D>("lights");
         }
-        public void Update(int state,int statePre, Vector2 playerPos, int sc, bool accel,bool accelePre)//※※
+        public void Update(int state, int statePre, Vector2 playerPos, int sc, bool accel, bool accelePre)  
         {
-            Pre(state, statePre,accel,accelePre);
+            Pre(state, statePre, accel, accelePre);
             Lights_Dead(playerPos, sc);
             if (state == (int)State.dead) Lights_Last();
             else
@@ -79,17 +79,17 @@ namespace OneButton
                 Lights_Bone(playerPos, accel);
             }
         }
-        public void Pre(int state,int statePre,bool accele,bool accelePre)
+        public void Pre(int state, int statePre, bool accele, bool accelePre)
         {
             switch (statePre)
             {
                 case (int)State.drop://落下から浮遊
-                    if(state == (int)State.fly)
+                    if (state == (int)State.fly)
                     {
                         y = (int)tex.fly;
                         x = 0;
                     }
-                    else if(state == (int)State.stop)
+                    else if (state == (int)State.stop)
                     {
                         y = (int)tex.stop;
                         x = 0;
@@ -101,14 +101,14 @@ namespace OneButton
                         y = (int)tex.stop;
                         x = 0;
                     }
-                    if(state == (int)State.drop)
+                    if (state == (int)State.drop)
                     {
                         y = (int)tex.drop;
                         x = 0;
                     }
                     break;
                 case (int)State.stop://静止から浮遊
-                    if(state == (int)State.fly)
+                    if (state == (int)State.fly)
                     {
                         y = (int)tex.flyPre;
                         x = 0;
@@ -121,7 +121,6 @@ namespace OneButton
                 y = (int)tex.dropPre;
                 x = 0;
             }
-            //※※↓
             if (state == (int)State.fly)
             {
                 if (scale[(int)name.chara] >= 1) sca[(int)name.chara] = -0.004f;
@@ -129,9 +128,8 @@ namespace OneButton
                 scale[(int)name.chara] += sca[(int)name.chara];
             }
             else scale[(int)name.chara] = 1;
-            //※※↑
             count--;
-            if(count <= 0)
+            if (count <= 0)
             {
                 x++;
                 if (x >= player.Width / SIZE_PLAYER)
@@ -145,7 +143,7 @@ namespace OneButton
                 else count = NEW_COUNT_10;
             }
         }
-        public void Lights_Emission()//※※
+        public void Lights_Emission()  
         {
             if (scale[(int)name.lights] >= 1.1f) sca[(int)name.lights] = -0.003f;
             else if (scale[(int)name.lights] <= 0.9f) sca[(int)name.lights] = 0.003f;
@@ -154,9 +152,9 @@ namespace OneButton
             else if (alpha_Lights <= 0) alphaNum_Lights = 0.01f;
             alpha_Lights += alphaNum_Lights;
         }
-        public void Lights_Last()//※※
+        public void Lights_Last()  
         {
-            if(alpha_Lights >= 0)alpha_Lights -= 0.01f;
+            if (alpha_Lights >= 0) alpha_Lights -= 0.01f;
         }
         public void DD()
         {
@@ -164,28 +162,28 @@ namespace OneButton
             x = 0;
         }
 
-        public void Lights_Bone(Vector2 playerPos,bool accel)//※※
+        public void Lights_Bone(Vector2 playerPos, bool accel)  
         {
             if (accel) Pnum = MAX_LIGHT;
             else Pnum = MIN_LIGHT;
             for (int i = 0; i < Pnum; i++)
             {
-                pos.Add(new Vector2(rnd.Next((int)playerPos.X - RUDIOS, (int)(playerPos.X - RUDIOS) + SIZE_PLAYER - maru.Width), rnd.Next((int)playerPos.Y - SIZE_PLAYER/2, (int)playerPos.Y - RUDIOS + (SIZE_PLAYER - SIZE_PLAYER / 4))));
+                pos.Add(new Vector2(rnd.Next((int)playerPos.X - RUDIOS, (int)(playerPos.X - RUDIOS) + SIZE_PLAYER - maru.Width), rnd.Next((int)playerPos.Y - SIZE_PLAYER / 2, (int)playerPos.Y - RUDIOS + (SIZE_PLAYER - SIZE_PLAYER / 4))));
                 hp.Add(HP_LIGHT);
                 ppx.Add(0);
                 ppy.Add(0);
             }
         }
-        public void Lights_Dead(Vector2 playerPos,int sc)//※※
+        public void Lights_Dead(Vector2 playerPos, int sc)  
         {
             for (int i = 0; i < hp.Count; i++)
             {
                 hp[i]--;
                 ppy[i] += SPEED_LIGHT;
-                if(hp[i] <= HP_LIGHT - 5)
+                if (hp[i] <= HP_LIGHT - 5)
                 {
-                    if (pos[i].X <= playerPos.X - RUDIOS + SIZE_PLAYER/4) ppx[i] -= SPEED_LIGHT;
-                    else if(pos[i].X >= playerPos.X - RUDIOS +SIZE_PLAYER - (SIZE_PLAYER/4)) ppx[i] += SPEED_LIGHT;
+                    if (pos[i].X <= playerPos.X - RUDIOS + SIZE_PLAYER / 4) ppx[i] -= SPEED_LIGHT;
+                    else if (pos[i].X >= playerPos.X - RUDIOS + SIZE_PLAYER - (SIZE_PLAYER / 4)) ppx[i] += SPEED_LIGHT;
                 }
                 if (hp[i] <= 0)
                 {
@@ -196,13 +194,13 @@ namespace OneButton
                 }
             }
         }
-        public void Draw(SpriteBatch sb,Vector2 pos,int sc,int state)
+        public void Draw(SpriteBatch sb, Vector2 pos, int sc, int state)
         {
             if (!dead)
             {
-                for (int i = 0; i < this.pos.Count; i++) sb.Draw(maru, new Vector2(this.pos[i].X + ppx[i], this.pos[i].Y - sc - ppy[i]), Color.LightGreen);//パーティクル
-                sb.Draw(lights, new Vector2(pos.X - RUDIOS - SIZE_PLAYER / 2, pos.Y - RUDIOS - SIZE_PLAYER / 2 - sc) + new Vector2(64,64), new Rectangle(0, 0, 128, 128), Color.White*alpha_Lights, 0.0f, new Vector2(64, 64), scale[(int)name.lights], SpriteEffects.None, 1.0f);
-                sb.Draw(player, new Vector2(pos.X - RUDIOS, pos.Y - RUDIOS - sc)+new Vector2(SIZE_PLAYER/2,SIZE_PLAYER/2), new Rectangle(SIZE_PLAYER * x, SIZE_PLAYER * y, SIZE_PLAYER, SIZE_PLAYER), Color.White,0.0f,new Vector2(SIZE_PLAYER/2,SIZE_PLAYER/2),scale[(int)name.chara], SpriteEffects.None,1.0f);//動作確認
+                for (int i = 0; i < this.pos.Count; i++) sb.Draw(maru, new Vector2(this.pos[i].X + ppx[i], this.pos[i].Y - sc - ppy[i]), Color.White);//パーティクル
+                sb.Draw(lights, new Vector2(pos.X - RUDIOS - SIZE_PLAYER / 2, pos.Y - RUDIOS - SIZE_PLAYER / 2 - sc) + new Vector2(64, 64), new Rectangle(0, 0, 128, 128), Color.White * alpha_Lights, 0.0f, new Vector2(64, 64), scale[(int)name.lights], SpriteEffects.None, 1.0f);
+                sb.Draw(player, new Vector2(pos.X - RUDIOS, pos.Y - RUDIOS - sc) + new Vector2(SIZE_PLAYER / 2, SIZE_PLAYER / 2), new Rectangle(SIZE_PLAYER * x, SIZE_PLAYER * y, SIZE_PLAYER, SIZE_PLAYER), Color.White, 0.0f, new Vector2(SIZE_PLAYER / 2, SIZE_PLAYER / 2), scale[(int)name.chara], SpriteEffects.None, 1.0f);//動作確認
             }
         }
     }
