@@ -122,7 +122,7 @@ namespace OneButton
             }
             if (!tut)
             {
-                if (player.Y + SIZE <= size.Height / 2) player.Y += SPEED;
+                if (player.Y < SIZE*7) player.Y += SPEED;
                 else y = 0;
             }
             else if (y == 2) player.Y += SPEED;
@@ -168,8 +168,8 @@ namespace OneButton
         public void Draw_Tutlial(SpriteBatch sb)//※※
         {
             Draw_Anime(sb);
-            sb.Draw(character, player, new Rectangle(SIZE * x, SIZE * y, SIZE, SIZE), Color.White);
             sb.Draw(tutlial, Vector2.Zero, Color.White);
+            sb.Draw(character, player, new Rectangle(SIZE * x, SIZE * y, SIZE, SIZE), Color.White);
             Draw_Back(sb);
         }
         public void Draw_Lose(SpriteBatch sb)

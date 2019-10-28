@@ -10,7 +10,7 @@ namespace OneButton
         Vector2 pos;
 
         int count;
-       readonly Vector2 SIZE = new Vector2(704, 640);
+       readonly Vector2 SIZE = new Vector2(640, 960);
         const int SPEED = 1;
         const int APPEAR = 3;
 

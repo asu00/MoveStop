@@ -33,7 +33,6 @@ namespace OneButton
         public void Load(ContentManager content)
         {
             playertex = content.Load<Texture2D>("pos_player");
-            bartex = content.Load<Texture2D>("bar");
             enemyBarTex = content.Load<Texture2D>("pos_enemy");
         }
 
