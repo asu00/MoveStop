@@ -36,7 +36,7 @@ namespace OneButton
         {
             if (nowItem < ITEM_MAX)
                 nowItem++;
-            nowBar = nowItem * ITEM_UP;
+            nowBar += ITEM_UP;
         }
         public bool Accele()
         {

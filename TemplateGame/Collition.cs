@@ -15,7 +15,7 @@ namespace OneButton
             {
                 Vector2 oPos = otherPos[i];
 
-                if (pPos.X > oPos.X && pPos.X < oPos.X + oSize.X && pPos.Y + pR > oPos.Y && pPos.Y + pR < oPos.Y + oSize.Y)
+                if (pPos.X+64 > oPos.X && pPos.X < oPos.X + oSize.X && pPos.Y + 32 > oPos.Y && pPos.Y < oPos.Y + oSize.Y)
                     return i;
             }
             return -1;

@@ -104,12 +104,18 @@ namespace OneButton
                 pos.Y += speed;
                 state = State.drop;
             }
-            if (pos.Y > size.Under && drop && pos.Y <= size.EndSc) sc += speed;
+            if (pos.Y > size.Under && drop && pos.Y <= size.EndSc&& state != State.stop) sc += speed;
         }
-        public void FloorMove(float move)
+        public void FloorMove(float move, float fy)
         {
-            pos.X += move;
             state = State.stop;
+            //pos.Y = fy - 30;
+            pos.X += move;
+            if (pos.X < 64)
+                pos.X = 64;
+            else if (pos.X > 64 * 9 - 64)
+                pos.X = 64 * 9 - 64;
+
             accele = false;
         }
         public void DeadFlag()

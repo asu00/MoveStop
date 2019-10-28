@@ -169,7 +169,7 @@ namespace OneButton
                         int ii = coll.ItemColl(player.Pos, player.R, map.ItemPos, map.ISize, map.InowGet);
                         if (fi != -1 && player.DropF)
                         {
-                            player.FloorMove(map.MovePos[fi]);
+                            player.FloorMove(map.MovePos[fi],map.FloorPos[fi].Y);
                         }
                         if (coll.PrColl(player.Pos+player.Hit, player.R-player.Coll, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
                         {                            
