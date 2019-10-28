@@ -12,22 +12,27 @@ namespace OneButton
         Size size = new Size();
         const int SIZE_PLAYER = 64;
 
-        Vector2 pos, posPre;
+        //***
+        Vector2 pos, posPre, hit;
+        const int COLL = 5;
         int speed;
         const int RUDIOS = 32;
 
 
-        const int HIGH_SPEED = 6;
-        const int NORMAL_SPEED = 2;
+        const int HIGH_SPEED = 15;
+        const int NORMAL_SPEED = 9;
         int sc;
         bool drop, accele, accelePre;
         bool goal;
 
         public bool DropF => drop;
+        public int Coll => COLL;
 
         public int SC { get { return sc; } }
         public Vector2 Pos { get { return pos; } }
-        public Vector2 PosPre { get { return posPre; } } 
+        public Vector2 PosPre { get { return posPre; } }
+        //***
+        public Vector2 Hit { get { return hit; } }
         public int R => RUDIOS;
 
         enum State { drop, fly, stop, acccel, dead }

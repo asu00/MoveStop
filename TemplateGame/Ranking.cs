@@ -12,7 +12,6 @@ namespace OneButton
         Size size = new Size();
 
         const int BIT = 64;
-
         const int RANKING = 3;
         const int SIZE_X = 32;
         const int SIZE_Y = 64;
@@ -53,8 +52,6 @@ namespace OneButton
             rankTex = content.Load<Texture2D>("num");
         }
 
-       
-
         public void GiveRanking(Vector2 playerpos, int time)
         {
             if (!flg)
@@ -69,8 +66,6 @@ namespace OneButton
 
         public void Draw(SpriteBatch sb)
         {
-
-            
             sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 5, (int)playerpos.Y, SIZE_X, SIZE_Y),
                 new Rectangle(playerTime % THOUSAND / HUNDRED * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 4, (int)playerpos.Y, SIZE_X, SIZE_Y),

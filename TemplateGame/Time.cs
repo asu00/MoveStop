@@ -7,7 +7,7 @@ using System.Timers;
 
 namespace OneButton
 {
-    
+
     class Time
     {
         Size size = new Size();
@@ -18,7 +18,7 @@ namespace OneButton
         const int SIZE_Y = 64;
 
         //表示サイズ
-        readonly Vector2 DISPLAY = new Vector2(16,32);
+        readonly Vector2 DISPLAY = new Vector2(16, 32);
 
         const int ONE_FLAME = 167;
         const int MINUTES = 60;
@@ -44,7 +44,7 @@ namespace OneButton
         Vector2 oneMinutes;
         Vector2 twoMinutes;
 
-        public int StopTime { get{ return stopTime; } }
+        public int StopTime { get { return stopTime; } }
 
         public Time()
         {
@@ -57,12 +57,12 @@ namespace OneButton
             second = 0;
             minutes = 0;
 
-            oneMill = new Vector2(DISPLAY.X*8, SIZE_X);
+            oneMill = new Vector2(DISPLAY.X * 8, SIZE_X);
             twoMill = new Vector2(DISPLAY.X * 7, SIZE_X);
             threeMill = new Vector2(DISPLAY.X * 6, SIZE_X);
             fourMill = new Vector2(DISPLAY.X * 5, SIZE_X);
 
-            oneSecond = new Vector2(DISPLAY.X* 4, SIZE_X);
+            oneSecond = new Vector2(DISPLAY.X * 4, SIZE_X);
             twoSecond = new Vector2(DISPLAY.X * 3, SIZE_X);
 
             oneMinutes = new Vector2(DISPLAY.X * 2, SIZE_X);
@@ -74,17 +74,15 @@ namespace OneButton
             tex = content.Load<Texture2D>("num");
         }
 
-       public void Updae(Vector2 player)
+        public void Updae(Vector2 player)
         {
             Timer(player);
         }
 
         private void Timer(Vector2 player)
         {
-            if(size.World >= player.Y)mill += ONE_FLAME;
-           
-                stopTime = minutes * THOUSAND * THOUSAND + second * SECOND + mill;
-            
+            if (size.World >= player.Y) mill += ONE_FLAME;
+            stopTime = minutes * THOUSAND * THOUSAND + second * SECOND + mill;
             if (mill >= SECOND)
             {
                 second++;
@@ -101,19 +99,18 @@ namespace OneButton
         public void Draw(SpriteBatch sb)
         {
 
-            
             sb.Draw(tex, new Rectangle((int)threeMill.X, (int)threeMill.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
-                new Rectangle(mill%THOUSAND / HUNDRED*SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+                new Rectangle(mill % THOUSAND / HUNDRED * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)fourMill.X, (int)fourMill.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
                 new Rectangle(mill / THOUSAND * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)oneSecond.X, (int)oneSecond.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
-                new Rectangle(second % TEN*SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+                new Rectangle(second % TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)twoSecond.X, (int)twoSecond.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
-                new Rectangle(second / TEN*SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+                new Rectangle(second / TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)oneMinutes.X, (int)oneMinutes.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
-                new Rectangle(minutes% TEN*SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+                new Rectangle(minutes % TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)twoMinutes.X, (int)twoMinutes.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
-                new Rectangle(minutes / TEN*SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+                new Rectangle(minutes / TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
         }
     }
 }

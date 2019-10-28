@@ -10,9 +10,9 @@ namespace OneButton
         Vector2 pos;
 
         int count;
-       readonly Vector2 SIZE = new Vector2(704, 640);
-        const int SPEED = 1;
-        const int APPEAR = 3;
+       readonly Vector2 SIZE = new Vector2(500, 500);
+        const int SPEED = 4;
+        const int APPEAR = 20;
 
         public Vector2 Pos { get{ return pos; } }
         public Vector2 Size => SIZE;
@@ -22,7 +22,7 @@ namespace OneButton
         public void Init()
         {
             count = 0;
-            pos = new Vector2(-10, -680);
+            pos = new Vector2(0, -SIZE.Y-64);
         }
 
         public void Load(ContentManager content)

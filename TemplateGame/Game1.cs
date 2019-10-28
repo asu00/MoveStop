@@ -146,7 +146,7 @@ namespace OneButton
             {
                 case Scene.title:
                     button.Button();
-                    if (ui.Scene_Change(ui.Title(key.IsPushKey))) scene = Scene.tutlial;//※※
+                    if (ui.Scene_Change(ui.Title(key.IsPushKey))) scene = Scene.tutlial;  
 
                     break;
                 case Scene.tutlial:
@@ -160,7 +160,6 @@ namespace OneButton
                         key.Update();
                         enemy.Update();
                         time.Updae(player.Pos);
-                        
                         positionBar.Update(player.Pos, enemy.Pos, (int)enemy.Size.Y);
                         map.FloorMove(size.Width);
                         map.FlagChange(player.Pos);
@@ -172,7 +171,7 @@ namespace OneButton
                         {
                             player.FloorMove(map.MovePos[fi]);
                         }
-                        if (coll.PrColl(player.Pos, player.R, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
+                        if (coll.PrColl(player.Pos+player.Hit, player.R-player.Coll, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
                         {                            
                             player.DeadFlag();
                             anime.DD();
@@ -195,6 +194,7 @@ namespace OneButton
                     }
                     break;
                 case Scene.retry:
+                    button.Button();
                     key.Update();
                     key.Re();
                     if (ui.Scene_Change(key.IsPushKey))
@@ -215,7 +215,6 @@ namespace OneButton
                     }
                     break;
             }
-            
             // この上にロジックを記述
             base.Update(gameTime); // 親クラスの更新処理呼び出し。絶対に消すな！！
         }
@@ -242,9 +241,9 @@ namespace OneButton
                     ui.Draw_Tutlial(spriteBatch);
                     break;
                 case Scene.play:
-                    anime.Draw(spriteBatch, player.Pos, player.SC, player.St);
                     map.Draw(spriteBatch, player.SC);
                     enemy.Draw(spriteBatch, player.SC);
+                    anime.Draw(spriteBatch, player.Pos, player.SC, player.St); //プレイヤーは床より前か後か
 
                     ui.Draw(spriteBatch, player.SC);
                     positionBar.Draw(spriteBatch);
@@ -253,13 +252,14 @@ namespace OneButton
                     ui.Draw_Back(spriteBatch);
                     break;
                 case Scene.retry:
+                    button.Draw(spriteBatch);
                     ui.Draw_Lose(spriteBatch);
                     break;
                 case Scene.end:
+                    button.Draw(spriteBatch);
                     ui.Draw_End(spriteBatch);
                     ranking.Draw(spriteBatch);
-                    button.Draw(spriteBatch);
-                    ui.Draw_Back(spriteBatch);
+                    ui.Draw_Back(spriteBatch);//数字が隠れないので
                     break;
             }
             spriteBatch.End();
