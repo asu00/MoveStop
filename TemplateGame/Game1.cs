@@ -171,7 +171,7 @@ namespace OneButton
                         {
                             player.FloorMove(map.MovePos[fi]);
                         }
-                        if (coll.PrColl(player.Pos, player.R, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
+                        if (coll.PrColl(player.Pos+player.Hit, player.R-player.Coll, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
                         {                            
                             player.DeadFlag();
                             anime.DD();

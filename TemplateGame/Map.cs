@@ -15,10 +15,15 @@ namespace OneButton
     {
         //針山
         Texture2D prickle;
-        const int PR_SPEED = 2;
+        const int PR_SPEED = 4;
         bool[] prDrawF;
-        readonly Vector2 prSize = new Vector2(192, 32);//針の部分のサイズ
-        readonly Vector2[] prPosBase = { new Vector2(32, 400), new Vector2(300, 600) };
+        readonly Vector2 prSize = new Vector2(128, 32);//針の部分のサイズ
+
+        readonly Vector2[] prPosBase = {new Vector2(300,1800),new Vector2(210,3000),new Vector2(300,3650),new Vector2(210,3900),
+            new Vector2(300,4300),new Vector2(210,5300),new Vector2(210,5600),new Vector2 (290,5900),new Vector2(210,6200),
+            new Vector2(290,6400),new Vector2(290,7400),new Vector2(210,7600),new Vector2(210,8500),new Vector2(290,8600),
+            new Vector2(210,9600),new Vector2(290,9700),new Vector2(245,9800)};
+
         Vector2[] prPos;
         public Vector2[] PrPos => prPos;
         public Vector2 PrSize => prSize;
@@ -26,9 +31,17 @@ namespace OneButton
         //床
         Texture2D floor;
         bool[] floorDrawF;
-        const int F_SPEED = 2;
-        readonly Vector2 fSize = new Vector2(196, 32);
-         readonly Vector2[] floorPosBase = { new Vector2(300, 800), new Vector2(200, 2200) };
+
+        const int F_SPEED = 5;
+        readonly Vector2 fSize = new Vector2(128, 32);
+
+        readonly Vector2[] floorPosBase = { new Vector2(300, 900), new Vector2(200, 1400),
+            new Vector2(210,2100),new Vector2(240,2200),new Vector2(260,2300),new Vector2 (270,2400),new Vector2(290,2500),
+            new Vector2 (210,2600),new Vector2(270,2700),new Vector2(230,2800),new Vector2 (210,3400),new Vector2(260,3800),
+            new Vector2(290,4900),new Vector2(210,6000),new Vector2(290,7000),new Vector2(210,7200),
+            new Vector2(290,8000),new Vector2(210,8300),new Vector2(210,9400)};
+
+
         Vector2[] floorPos; //書き込み用
         float[] movePos;
         public float[] MovePos => movePos;
@@ -42,16 +55,19 @@ namespace OneButton
             RIGHT = 1,
             LEFT = -1,
         }
-        readonly Dir[] floorDirBase = { Dir.LEFT, Dir.RIGHT };
+        readonly Dir[] floorDirBase = { Dir.LEFT,Dir.RIGHT,Dir.RIGHT,Dir.RIGHT,Dir.RIGHT,Dir.RIGHT,Dir.RIGHT,Dir.RIGHT,Dir.RIGHT,
+            Dir.RIGHT,Dir.RIGHT,Dir.LEFT,Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.LEFT,Dir.RIGHT};
         int[] fd; //書き込み用
-        readonly Dir[] prDirBase = { Dir.LEFT, Dir.RIGHT };
+        readonly Dir[] prDirBase = { Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.RIGHT,Dir.LEFT,
+            Dir.RIGHT,Dir.LEFT,Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT};
         int[] prd; //書き込み用
 
         //アイテム
         Texture2D item;
         readonly Vector2 iSize = new Vector2(64, 64);
         public Vector2 ISize => iSize;
-        readonly Vector2[] itemPosBase = { new Vector2(200, 500) };
+        readonly Vector2[] itemPosBase = { new Vector2(220,500),new Vector2(400, 850),new Vector2 (100,2100), new Vector2(300, 2400),
+            new Vector2(220,4850),new Vector2(220,7150),new Vector2(80,8250),new Vector2(450,8250),new Vector2(230,9350)};
         Vector2[] itemPos;
         public Vector2[] ItemPos => itemPos;
         bool[] inowGet, inowDraw;
@@ -138,13 +154,23 @@ namespace OneButton
                 if (!floorDrawF[i]) continue;
                 movePos[i] = fd[i] * F_SPEED;
                 floorPos[i].X += movePos[i];
-                if (floorPos[i].X + fSize.X > wid-32 || floorPos[i].X < 32) fd[i] = -fd[i]; //反転
+                if (floorPos[i].X + fSize.X > wid - 95)
+                {
+                    floorPos[i].X = wid - 95 - fSize.X;
+                    fd[i] = -fd[i];
+                }else if(floorPos[i].X < 32)
+                {
+                    floorPos[i].X = 32;
+                    fd[i] = -fd[i];
+                }
+
+                //if (floorPos[i].X + fSize.X > wid-95 || floorPos[i].X < 32) fd[i] = -fd[i]; //反転
             }
             for (int i = 0; i < prPosBase.Length; i++)
             {
                 if (!prDrawF[i]) continue;
                 prPos[i].X += prd[i] * PR_SPEED;
-                if (prPos[i].X + PrSize.X > wid - 32 || prPos[i].X < 32) prd[i] = -prd[i]; //反転
+                if (prPos[i].X + PrSize.X > wid - 95|| prPos[i].X < 32) prd[i] = -prd[i]; //反転
             }
         }
 
