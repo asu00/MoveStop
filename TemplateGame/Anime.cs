@@ -70,11 +70,13 @@ namespace OneButton
         }
         public void Update(int state, int statePre, Vector2 playerPos, int sc, bool accel, bool accelePre)  
         {
-            Pre(state, statePre, accel, accelePre);
+            Move_X();
+            
             Lights_Dead(playerPos, sc);
             if (state == (int)State.dead) Lights_Last();
             else
             {
+                Pre(state, statePre, accel, accelePre);
                 Lights_Emission();
                 Lights_Bone(playerPos, accel);
             }
@@ -128,6 +130,10 @@ namespace OneButton
                 scale[(int)name.chara] += sca[(int)name.chara];
             }
             else scale[(int)name.chara] = 1;
+            
+        }
+        public void Move_X()
+        {
             count--;
             if (count <= 0)
             {
@@ -161,7 +167,6 @@ namespace OneButton
             y = (int)tex.dead;
             x = 0;
         }
-
         public void Lights_Bone(Vector2 playerPos, bool accel)  
         {
             if (accel) Pnum = MAX_LIGHT;

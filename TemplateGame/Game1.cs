@@ -218,8 +218,8 @@ namespace OneButton
                     if (key.IsPushKey) music.SePlay((int)SE.BOTAN);
                     if (ui.Scene_Change(key.IsPushKey))
                     {
-                        if (key.Re() == 1) scene = Scene.title;
-                        else scene = Scene.play;
+                        if (key.Re() == 1) scene = Scene.play;
+                        else scene = Scene.title;
                         Init();
                     }
                     break;
