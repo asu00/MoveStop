@@ -34,8 +34,11 @@ namespace OneButton
         Bar bar;
 
         enum Scene { title, tutlial, play, end, retry }
+        enum Bgm { TITLE,STAGE}
+        enum SE { DIE,CLEAR,MOVE,ITEM,HIGH,BOTAN,HIT}
         Time time;
         Ranking ranking;
+        Music music;
 
         Scene scene;
 
@@ -71,6 +74,7 @@ namespace OneButton
             bar = new Bar();
             time = new Time();
             ranking = new Ranking();
+            music = new Music();
 
             base.Initialize();// 親クラスの初期化処理呼び出し。絶対に消すな！！
         }
@@ -87,6 +91,7 @@ namespace OneButton
             button.Ini();
             positionBar.Init();
             ranking.Init();
+            music.Init();
         }
         /// <summary>
         /// コンテンツデータ（リソースデータ）の読み込み処理
@@ -109,6 +114,7 @@ namespace OneButton
             bar.Load(Content);
             time.Load(Content);
             ranking.Load(Content);
+            music.Load(Content);
             // この上にロジックを記述
         }
 
@@ -146,16 +152,25 @@ namespace OneButton
             {
                 case Scene.title:
                     button.Button();
-                    if (ui.Scene_Change(ui.Title(key.IsPushKey))) scene = Scene.tutlial;  
+                        music.SongPlayer((int)Bgm.TITLE);
+                    if (ui.Scene_Change(ui.Title(key.IsPushKey,music.Se[(int)SE.BOTAN])))
+                    {
+                        scene = Scene.tutlial;
+                    }
 
                     break;
                 case Scene.tutlial:
                     button.Button();
-                    if (ui.Scene_Change(ui.Tutlial(key.IsPushKey))) scene = Scene.play;
+                    if (ui.Scene_Change(ui.Tutlial(key.IsPushKey, music.Se[(int)SE.BOTAN])))
+                    {
+                        music.SongStopper();
+                        scene = Scene.play;
+                    }
                     break;
                 case Scene.play:
                     if (player.St != 4)
                     {
+                        music.SongPlayer((int)Bgm.STAGE);
                         ui.Scroll(player.SC);
                         key.Update();
                         enemy.Update();
@@ -163,16 +178,17 @@ namespace OneButton
                         positionBar.Update(player.Pos, enemy.Pos, (int)enemy.Size.Y);
                         map.FloorMove(size.Width);
                         map.FlagChange(player.Pos);
-                        player.Update(key, bar.Accele);
+                        player.Update(key, bar.Accele, music.Se[(int)SE.MOVE], music.Se[(int)SE.HIGH]);
 
                         int fi = coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize);
-                        int ii = coll.ItemColl(player.Pos, player.R, map.ItemPos, map.ISize, map.InowGet);
+                        int ii = coll.ItemColl(player.Pos, player.R, map.ItemPos, map.ISize, map.InowGet, music.Se[(int)SE.ITEM]);
                         if (fi != -1 && player.DropF)
                         {
                             player.FloorMove(map.MovePos[fi],map.FloorPos[fi].Y);
                         }
                         if (coll.PrColl(player.Pos+player.Hit, player.R-player.Coll, map.PrPos, map.PrSize) || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size))
-                        {                            
+                        {
+                            music.SePlay((int)SE.HIT);
                             player.DeadFlag();
                             anime.DD();
                         }
@@ -189,14 +205,17 @@ namespace OneButton
                     if (ui.Scene_Change(sceneCount.Change(anime.Dead || player.GoalFlag())))
                     {
                         key.Ini();
+                        music.SongStopper();
                         if(!anime.Dead) scene = Scene.end;
                         else scene = Scene.retry;
                     }
                     break;
                 case Scene.retry:
+                    music.OneSePlay((int)SE.DIE);
                     button.Button();
                     key.Update();
                     key.Re();
+                    if (key.IsPushKey) music.SePlay((int)SE.BOTAN);
                     if (ui.Scene_Change(key.IsPushKey))
                     {
                         if (key.Re() == 1) scene = Scene.title;
@@ -205,9 +224,11 @@ namespace OneButton
                     }
                     break;
                 case Scene.end:
+                    music.OneSePlay((int)SE.CLEAR);
                     ranking.GiveRanking(player.Pos,time.StopTime);
                     ui.End();
                     button.Button();
+                    if (key.IsPushKey) music.SePlay((int)SE.BOTAN);
                     if (ui.Scene_Change(key.IsPushKey))
                     {
                         scene = Scene.title;

@@ -26,15 +26,16 @@ namespace OneButton
         const int THOUSAND = 1000;
         const int HUNDRED = 100;
         const int TEN = 10;
+       
 
         int mill;
         int second;
         int minutes;
+        
 
         int stopTime;
 
-        Vector2 oneMill;
-        Vector2 twoMill;
+        Vector2[] commapos =new Vector2[2];
         Vector2 threeMill;
         Vector2 fourMill;
 
@@ -57,16 +58,19 @@ namespace OneButton
             second = 0;
             minutes = 0;
 
-            oneMill = new Vector2(DISPLAY.X * 8, SIZE_X);
-            twoMill = new Vector2(DISPLAY.X * 7, SIZE_X);
-            threeMill = new Vector2(DISPLAY.X * 6, SIZE_X);
-            fourMill = new Vector2(DISPLAY.X * 5, SIZE_X);
 
-            oneSecond = new Vector2(DISPLAY.X * 4, SIZE_X);
-            twoSecond = new Vector2(DISPLAY.X * 3, SIZE_X);
+            threeMill = new Vector2(DISPLAY.X * 8+HUNDRED, 0);
+            fourMill = new Vector2(DISPLAY.X * 7+HUNDRED, 0);
 
-            oneMinutes = new Vector2(DISPLAY.X * 2, SIZE_X);
-            twoMinutes = new Vector2(DISPLAY.X, SIZE_X);
+            commapos[1] = new Vector2(DISPLAY.X * 6+HUNDRED, 0);
+
+            oneSecond = new Vector2(DISPLAY.X * 5+HUNDRED, 0);
+            twoSecond = new Vector2(DISPLAY.X * 4+HUNDRED, 0);
+
+            commapos[0] = new Vector2(DISPLAY.X * 3+HUNDRED,0);
+
+            oneMinutes = new Vector2(DISPLAY.X * 2+HUNDRED, 0);
+            twoMinutes = new Vector2(DISPLAY.X+HUNDRED, 0);
         }
 
         public void Load(ContentManager content)
@@ -103,10 +107,18 @@ namespace OneButton
                 new Rectangle(mill % THOUSAND / HUNDRED * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)fourMill.X, (int)fourMill.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
                 new Rectangle(mill / THOUSAND * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
+             sb.Draw(tex, new Rectangle((int)commapos[0].X, (int)commapos[0].Y, (int)DISPLAY.X, (int)DISPLAY.Y),
+                new Rectangle(TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
             sb.Draw(tex, new Rectangle((int)oneSecond.X, (int)oneSecond.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
                 new Rectangle(second % TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)twoSecond.X, (int)twoSecond.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
                 new Rectangle(second / TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
+            sb.Draw(tex, new Rectangle((int)commapos[1].X, (int)commapos[1].Y, (int)DISPLAY.X, (int)DISPLAY.Y),
+                new Rectangle(TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
             sb.Draw(tex, new Rectangle((int)oneMinutes.X, (int)oneMinutes.Y, (int)DISPLAY.X, (int)DISPLAY.Y),
                 new Rectangle(minutes % TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(tex, new Rectangle((int)twoMinutes.X, (int)twoMinutes.Y, (int)DISPLAY.X, (int)DISPLAY.Y),

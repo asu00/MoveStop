@@ -13,6 +13,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../Music/自作SE/Powa.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../../../../../Music/自作SE/Powa.wav;Powa.wav
+
+#begin ../../../画像/num.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../画像/num.png;num.png
+
+#begin Alarm_Guitar.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Alarm_Guitar.mp3
+
 #begin ber.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -24,6 +48,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ber.png
+
+#begin botan01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:botan01.wav
 
 #begin button.png
 /importer:TextureImporter
@@ -49,6 +79,18 @@
 /processorParam:TextureFormat=Color
 /build:cha.png
 
+#begin Clear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Clear.wav
+
+#begin Die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Die.wav
+
 #begin end.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -73,6 +115,18 @@
 /processorParam:TextureFormat=Color
 /build:enemy.png
 
+#begin Fui.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Fui.wav
+
+#begin GatanGoton.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:GatanGoton.mp3
+
 #begin head.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +138,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:head.png
+
+#begin High.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:High.wav
+
+#begin HIt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:HIt.wav
 
 #begin item.png
 /importer:TextureImporter
@@ -120,18 +186,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:lights.png
-
-#begin num.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:num.png
 
 #begin player.png
 /importer:TextureImporter
@@ -180,6 +234,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:posber.png
+
+#begin Powa.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Powa.wav
 
 #begin retry.png
 /importer:TextureImporter

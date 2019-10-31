@@ -3,12 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace OneButton
 {
     class UI
     {
         Size size = new Size();
+        Music music = new Music();
 
         const int NEW_COUNT_30 = 30;
         const int NEW_COUNT_10 = 10;
@@ -81,12 +84,13 @@ namespace OneButton
         }
 
 
-        public bool Title(bool key)  
+        public bool Title(bool key,SoundEffect botan)  
         {
             Moving();
             bool flag = false;
             if (key && y <= 0)
             {
+                botan.Play();
                 x = 0; y = 1;
                 count = NEW_COUNT_10;
             }
@@ -113,12 +117,13 @@ namespace OneButton
                 else count = NEW_COUNT_30;
             }
         }
-        public bool Tutlial(bool key)  
+        public bool Tutlial(bool key,SoundEffect botan)  
         {
             Moving();
             bool flag = false;
             if (key && !tut)
             {
+                botan.Play();
                 tut = true;
                 x = 0; y = 1;
                 count = NEW_COUNT_10;
