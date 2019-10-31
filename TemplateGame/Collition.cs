@@ -23,16 +23,16 @@ namespace OneButton
             }
             return -1;
         }
-        public bool PrColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize) //とげ
+        public int PrColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize) //とげ
         {
             for (int i = 0; i < othrerPos.Length; i++)
             {
                 Vector2 oPos = othrerPos[i];
 
                 if (pPos.X + pR > oPos.X && pPos.X - pR < oPos.X + oSize.X && pPos.Y + pR > oPos.Y && pPos.Y - pR < oPos.Y + oSize.Y)
-                    return true;
+                    return i;
             }
-            return false;
+            return -1;
         }
 
         public int ItemColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize,bool[] nowGet,SoundEffect item) //アイテム

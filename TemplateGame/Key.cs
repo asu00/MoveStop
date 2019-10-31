@@ -91,7 +91,6 @@ namespace OneButton
                 count = NEWCOUNT;
                 num[(int)name_num.push_Num] = 0;
             }
-            Debug.WriteLine("push"+num[(int)name_num.push_Num]+"flag"+ flag[(int)name_flag.onePush]+ flag[(int)name_flag.twoPush]);
         }
         public int Re()  
         {

@@ -15,7 +15,6 @@ namespace OneButton
        
         const int SIZE_PLAYER = 64;
 
-        //***
         Vector2 pos, posPre, hit;
         const int COLL = 5;
         int speed;
@@ -34,7 +33,6 @@ namespace OneButton
         public int SC { get { return sc; } }
         public Vector2 Pos { get { return pos; } }
         public Vector2 PosPre { get { return posPre; } }
-        //***
         public Vector2 Hit { get { return hit; } }
         public int R => RUDIOS;
 
@@ -64,6 +62,7 @@ namespace OneButton
 
         public void Update(Key key, Func<bool> Accele,SoundEffect move,SoundEffect high)
         {
+            Debug.WriteLine("Drop:"+drop);
             posPre = pos;
             statePre = state;
             KeyPushMove(key, Accele,move,high);
@@ -72,7 +71,7 @@ namespace OneButton
         public void KeyPushMove(Key key, Func<bool> Accele,SoundEffect move,SoundEffect high)
         {
             accelePre = accele;
-            if (key.TwoPush)
+            if (key.TwoPush&& state != State.stop)
             {
                 accele = true;
             }
@@ -108,7 +107,6 @@ namespace OneButton
                         break;
                 }
             }
-            Debug.WriteLine("加速" + accele);
         }
         public void Drop()
         {
