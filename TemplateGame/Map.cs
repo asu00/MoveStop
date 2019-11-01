@@ -15,9 +15,11 @@ namespace OneButton
     {
         //針山
         Texture2D prickle;
+        Texture2D prickle_short;
         const int PR_SPEED = 4;
         bool[] prDrawF;
         readonly Vector2 prSize = new Vector2(128, 32);//針の部分のサイズ
+        readonly Vector2 prSize_s = new Vector2(64, 32);
 
         readonly Vector2[] prPosBase = {new Vector2(300,1800),new Vector2(210,2400),new Vector2(210,3000),
             new Vector2(300,3650),new Vector2(210,3900),new Vector2(300,4300),new Vector2(210,5300),new Vector2(210,5600),
@@ -25,9 +27,12 @@ namespace OneButton
             new Vector2(210,8500),new Vector2(290,8600),new Vector2(210,9600),new Vector2(290,9700),new Vector2(245,9800)};
         readonly bool[] prMoveF = //true->動く
             { true,true,false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, };
+
         Vector2[] prPos;
         public Vector2[] PrPos => prPos;
+        public bool[] PrMoveF => prMoveF;
         public Vector2 PrSize => prSize;
+        public Vector2 PrSize_S => prSize_s;
 
         //床
         Texture2D floor;
@@ -119,6 +124,7 @@ namespace OneButton
         public void Load(ContentManager content)
         {
             prickle = content.Load<Texture2D>("thornber");
+            prickle_short = content.Load<Texture2D>("thornwall");
             floor = content.Load<Texture2D>("ber");
             item = content.Load<Texture2D>("item");
         }
@@ -199,7 +205,9 @@ namespace OneButton
             for (int i = 0; i < prPosBase.Length; i++)
             {
                 if (!prDrawF[i]) continue;
-                sb.Draw(prickle, new Vector2(prPosBase[i].X, prPosBase[i].Y - sc), Color.White);
+
+                if (!prMoveF[i]) sb.Draw(prickle_short, new Vector2(prPosBase[i].X, prPosBase[i].Y - sc), Color.White);
+                else sb.Draw(prickle, new Vector2(prPosBase[i].X, prPosBase[i].Y - sc), Color.White);
             }
             for (int i = 0; i < itemPosBase.Length; i++)
             {

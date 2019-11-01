@@ -16,16 +16,12 @@ namespace OneButton
         readonly Vector2 barSize = new Vector2(320, 32);
         const int ITEM_MAX = 5;
         int ITEM_UP; //一回の回復量
-        const int AC_SPEED = 1; //ゲージ消費量
-        int nowBar;
-        //補正
-        int fixCount;
-        const int FC_MAX=5;
+        const float AC_SPEED = 1; //ゲージ消費量
+        float nowBar;
 
         public Bar() { Init(); }
         public void Init()
         {
-            fixCount = 0;
             nowBar = 0;
             ITEM_UP = (int)barSize.X / ITEM_MAX; //最大アイテム数から1回の回復量を計算
         }
@@ -37,7 +33,7 @@ namespace OneButton
         {
             if (nowBar > barSize.X) return false; //最初から超えていたら上げない
 
-            int nextUp = nowBar + ITEM_UP;
+            float nextUp = nowBar + ITEM_UP;
             //足して最大値を超えなければ普通に+
             //超えるなら最大値に合わせる
             if (nextUp <= barSize.X)
@@ -55,7 +51,7 @@ namespace OneButton
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(bar, new Rectangle((int)barPos.X, (int)barPos.Y, nowBar, (int)barSize.Y), Color.Wheat);
+            sb.Draw(bar, new Rectangle((int)barPos.X, (int)barPos.Y, (int)nowBar, (int)barSize.Y), Color.Wheat);
         }
     }
 }

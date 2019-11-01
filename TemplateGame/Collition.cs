@@ -8,34 +8,42 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace OneButton
 {
-    
+
     class Collition
     {
-        Music music = new Music();
+
         public int FloorColl(Vector2 pPos, int pR, Vector2[] otherPos, Vector2 oSize) //床
         {
             for (int i = 0; i < otherPos.Length; i++)
             {
                 Vector2 oPos = otherPos[i];
 
-                if (pPos.X+32 > oPos.X && pPos.X < oPos.X + oSize.X && pPos.Y + 32 > oPos.Y && pPos.Y < oPos.Y + oSize.Y)
+                if (pPos.X + 32 > oPos.X && pPos.X < oPos.X + oSize.X && pPos.Y + 32 > oPos.Y && pPos.Y < oPos.Y + oSize.Y)
                     return i;
             }
             return -1;
         }
-        public int PrColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize) //とげ
+        public int PrColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize, Vector2 oSize_s, bool[] prMoveF) //とげ
         {
             for (int i = 0; i < othrerPos.Length; i++)
             {
                 Vector2 oPos = othrerPos[i];
 
-                if (pPos.X + pR > oPos.X && pPos.X - pR < oPos.X + oSize.X && pPos.Y + pR > oPos.Y && pPos.Y - pR < oPos.Y + oSize.Y)
-                    return i;
+                if (!prMoveF[i]) //停止
+                {
+                    if (pPos.X + pR > oPos.X && pPos.X - pR < oPos.X + oSize_s.X && pPos.Y + pR > oPos.Y && pPos.Y - pR < oPos.Y + oSize_s.Y)
+                        return i;
+                }
+                else
+                {
+                    if (pPos.X + pR > oPos.X && pPos.X - pR < oPos.X + oSize.X && pPos.Y + pR > oPos.Y && pPos.Y - pR < oPos.Y + oSize.Y)
+                        return i;
+                }
             }
             return -1;
         }
 
-        public int ItemColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize,bool[] nowGet,SoundEffect item) //アイテム
+        public int ItemColl(Vector2 pPos, int pR, Vector2[] othrerPos, Vector2 oSize, bool[] nowGet, SoundEffect item) //アイテム
         {
             for (int i = 0; i < othrerPos.Length; i++)
             {

@@ -235,12 +235,6 @@
 /processorParam:Quality=Best
 /build:Powa.wav
 
-#begin Powa.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Powa.wav
-
 #begin retry.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -300,6 +294,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:title.png
+
+#begin tutlial.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tutlial.png
 
 #begin wall.png
 /importer:TextureImporter

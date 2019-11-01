@@ -181,7 +181,7 @@ namespace OneButton
                         player.Update(key, bar.Accele, music.Se[(int)SE.MOVE], music.Se[(int)SE.HIGH]);
 
                         int fi = coll.FloorColl(player.Pos, player.R, map.FloorPos, map.Fsize);
-                        int pi = coll.PrColl(player.Pos + player.Hit, player.R - player.Coll, map.PrPos, map.PrSize);
+                        int pi = coll.PrColl(player.Pos + player.Hit, player.R - player.Coll, map.PrPos, map.PrSize,map.PrSize_S,map.PrMoveF);
                         int ii = coll.ItemColl(player.Pos, player.R, map.ItemPos, map.ISize, map.InowGet, music.Se[(int)SE.ITEM]);
 
                         if (player.Ac) //加速中は無敵
@@ -198,6 +198,7 @@ namespace OneButton
                             }
                             else if (pi != -1 || coll.EnemyColl(player.Pos, player.R, enemy.Pos, enemy.Size)) //ダメージ
                             {
+                                //if() //前フレームが無敵状態で当たっていれば 無効***
                                 music.SePlay((int)SE.HIT);
                                 player.DeadFlag();
                                 anime.DD();
