@@ -23,7 +23,8 @@ namespace OneButton
             new Vector2(300,3650),new Vector2(210,3900),new Vector2(300,4300),new Vector2(210,5300),new Vector2(210,5600),
             new Vector2 (290,5900),new Vector2(210,6200),new Vector2(290,6400),new Vector2(290,7400),new Vector2(210,7600),
             new Vector2(210,8500),new Vector2(290,8600),new Vector2(210,9600),new Vector2(290,9700),new Vector2(245,9800)};
-
+        readonly bool[] prMoveF = //true->動く
+            { true,true,false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, };
         Vector2[] prPos;
         public Vector2[] PrPos => prPos;
         public Vector2 PrSize => prSize;
@@ -157,17 +158,17 @@ namespace OneButton
                 {
                     floorPos[i].X = wid - 32 - fSize.X;
                     fd[i] = -fd[i];
-                }else if(floorPos[i].X < 32)
+                }
+                else if (floorPos[i].X < 32)
                 {
                     floorPos[i].X = 32;
                     fd[i] = -fd[i];
                 }
 
-                //if (floorPos[i].X + fSize.X > wid || floorPos[i].X < 32) fd[i] = -fd[i]; //反転
             }
             for (int i = 0; i < prPosBase.Length; i++)
             {
-                if (!prDrawF[i]) continue;
+                if (!prDrawF[i] || !prMoveF[i]) continue;
                 prPos[i].X += prd[i] * PR_SPEED;
                 if (prPos[i].X + PrSize.X > wid - 32)
                 {
@@ -180,7 +181,6 @@ namespace OneButton
                     prd[i] = -prd[i];
                 }
 
-                if (prPos[i].X + PrSize.X > wid - 32|| prPos[i].X < 32) prd[i] = -prd[i]; //反転
             }
         }
 

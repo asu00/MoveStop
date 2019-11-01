@@ -18,11 +18,15 @@ namespace OneButton
         int ITEM_UP; //一回の回復量
         const int AC_SPEED = 1; //ゲージ消費量
         int nowBar;
+        //補正
+        int fixCount;
+        const int FC_MAX=5;
 
         public Bar() { Init(); }
 
         public void Init()
         {
+            fixCount = 0;
             nowBar = 0;
             ITEM_UP = (int)barSize.X / ITEM_MAX; //最大アイテム数から1回の回復量を計算
         }
