@@ -23,13 +23,13 @@ namespace OneButton
 
         const int TIME_LIGHT = 40;
         const int HP_LIGHT = 30;
-        const int MAX_LIGHT = 3;
+        const int MAX_LIGHT = 7;
         const int MIN_LIGHT = 1;
         const float SPEED_LIGHT = 0.4f;
 
-        Texture2D player, enemy, maru, lights;
+        Texture2D player, maru, lights;
+        Color[] color = new Color[2];
 
-        int enemy_x, enemy_y;
 
         enum State { drop, fly, stop, accele, dead }
         enum tex { dropPre, drop, flyPre, fly, stop, dead }
@@ -46,7 +46,6 @@ namespace OneButton
         public bool Dead { get { return dead; } }
         public void Ini()
         {
-            enemy_x = 0; enemy_y = 0;
             x = 0; y = 0;
             for (int i = 0; i < 2; i++) scale[i] = 1.0f;  
             sca[(int)name.chara] = 0.04f;  
@@ -60,6 +59,7 @@ namespace OneButton
             hp.Clear();
             ppx.Clear();
             ppy.Clear();
+            for(int i = 0; i < 2; i++)color[i] = Color.White;
         }
 
         public void Load(ContentManager content)
@@ -71,7 +71,6 @@ namespace OneButton
         public void Update(int state, int statePre, Vector2 playerPos, int sc, bool accel, bool accelePre)  
         {
             Move_X();
-            
             Lights_Dead(playerPos, sc);
             if (state == (int)State.dead) Lights_Last();
             else
@@ -80,6 +79,7 @@ namespace OneButton
                 Lights_Emission();
                 Lights_Bone(playerPos, accel);
             }
+            Accel_Anime(accel);
         }
         public void Pre(int state, int statePre, bool accele, bool accelePre)
         {
@@ -130,7 +130,6 @@ namespace OneButton
                 scale[(int)name.chara] += sca[(int)name.chara];
             }
             else scale[(int)name.chara] = 1;
-            
         }
         public void Move_X()
         {
@@ -167,6 +166,7 @@ namespace OneButton
             y = (int)tex.dead;
             x = 0;
         }
+
         public void Lights_Bone(Vector2 playerPos, bool accel)  
         {
             if (accel) Pnum = MAX_LIGHT;
@@ -199,13 +199,25 @@ namespace OneButton
                 }
             }
         }
+        public void Accel_Anime(bool accel)
+        {
+            if (accel)
+            {
+                color[(int)name.chara] = Color.LightGoldenrodYellow;
+                color[(int)name.lights] = Color.Yellow;
+            }
+            else
+            {
+                for(int i =0; i< 2; i++)color[i] = Color.White;
+            }
+        }
         public void Draw(SpriteBatch sb, Vector2 pos, int sc, int state)
         {
             if (!dead)
             {
                 for (int i = 0; i < this.pos.Count; i++) sb.Draw(maru, new Vector2(this.pos[i].X + ppx[i], this.pos[i].Y - sc - ppy[i]), Color.White);//パーティクル
-                sb.Draw(lights, new Vector2(pos.X - RUDIOS - SIZE_PLAYER / 2, pos.Y - RUDIOS - SIZE_PLAYER / 2 - sc) + new Vector2(64, 64), new Rectangle(0, 0, 128, 128), Color.White * alpha_Lights, 0.0f, new Vector2(64, 64), scale[(int)name.lights], SpriteEffects.None, 1.0f);
-                sb.Draw(player, new Vector2(pos.X - RUDIOS, pos.Y - RUDIOS - sc) + new Vector2(SIZE_PLAYER / 2, SIZE_PLAYER / 2), new Rectangle(SIZE_PLAYER * x, SIZE_PLAYER * y, SIZE_PLAYER, SIZE_PLAYER), Color.White, 0.0f, new Vector2(SIZE_PLAYER / 2, SIZE_PLAYER / 2), scale[(int)name.chara], SpriteEffects.None, 1.0f);//動作確認
+                sb.Draw(lights, new Vector2(pos.X - RUDIOS - SIZE_PLAYER / 2, pos.Y - RUDIOS - SIZE_PLAYER / 2 - sc) + new Vector2(64, 64), new Rectangle(0, 0, 128, 128), color[(int)name.lights] * alpha_Lights, 0.0f, new Vector2(64, 64), scale[(int)name.lights], SpriteEffects.None, 1.0f);
+                sb.Draw(player, new Vector2(pos.X - RUDIOS, pos.Y - RUDIOS - sc) + new Vector2(SIZE_PLAYER / 2, SIZE_PLAYER / 2), new Rectangle(SIZE_PLAYER * x, SIZE_PLAYER * y, SIZE_PLAYER, SIZE_PLAYER), color[(int)name.chara], 0.0f, new Vector2(SIZE_PLAYER / 2, SIZE_PLAYER / 2), scale[(int)name.chara], SpriteEffects.None, 1.0f);//動作確認
             }
         }
     }

@@ -72,7 +72,7 @@ namespace OneButton
         public void KeyPushMove(Key key, Func<bool> Accele,SoundEffect move,SoundEffect high)
         {
             accelePre = accele;
-            if (key.TwoPush)
+            if (key.TwoPush&& state != State.stop)
             {
                 accele = true;
             }
