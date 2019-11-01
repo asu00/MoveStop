@@ -23,7 +23,6 @@ namespace OneButton
         const int FC_MAX=5;
 
         public Bar() { Init(); }
-
         public void Init()
         {
             fixCount = 0;

@@ -64,7 +64,7 @@ namespace OneButton
         }
         public void Scroll(int sc)
         {
-            for (int i = 0; i < 2; i++) if (pos[i].Y - sc <= -wall.Height) pos[i].Y = sc + wall.Height;
+            for (int i = 0; i < 2; i++) if (pos[i].Y - sc <= -size.Height) pos[i].Y = sc + size.Height;
         }
         public bool Scene_Change(bool button)
         {
@@ -130,7 +130,7 @@ namespace OneButton
             }
             if (!tut)
             {
-                if (player.Y < SIZE*7) player.Y += SPEED;
+                if (player.Y < SIZE * 9) player.Y += SPEED;
                 else y = 0;
             }
             else if (y == 2) player.Y += SPEED;
