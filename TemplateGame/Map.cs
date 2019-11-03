@@ -24,9 +24,9 @@ namespace OneButton
         readonly Vector2[] prPosBase = {new Vector2(300,1800),new Vector2(210,2400),new Vector2(210,3000),
             new Vector2(300,3650),new Vector2(210,3900),new Vector2(300,4300),new Vector2(210,5300),new Vector2(210,5600),
             new Vector2 (290,5900),new Vector2(210,6200),new Vector2(290,6400),new Vector2(290,7400),new Vector2(210,7600),
-            new Vector2(210,8500),new Vector2(290,8600),new Vector2(210,9600),new Vector2(290,9700),new Vector2(245,9800)};
+            new Vector2(210,8500),new Vector2(290,8600),new Vector2(210,9600),new Vector2(290,9700),new Vector2(245,9800),new Vector2(210,9500) };
         readonly bool[] prMoveF = //true->動く
-            { true,true,false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, };
+            { true,false,false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true,true };
 
         Vector2[] prPos;
         public Vector2[] PrPos => prPos;
@@ -63,7 +63,7 @@ namespace OneButton
             Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.LEFT,Dir.RIGHT};
         int[] fd; //書き込み用
         readonly Dir[] prDirBase = { Dir.LEFT,Dir.RIGHT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.RIGHT,Dir.LEFT,
-            Dir.RIGHT,Dir.LEFT,Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT};
+            Dir.RIGHT,Dir.LEFT,Dir.LEFT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.RIGHT,Dir.LEFT,Dir.RIGHT,Dir.RIGHT};
         int[] prd; //書き込み用
 
         //アイテム

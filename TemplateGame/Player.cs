@@ -120,7 +120,7 @@ namespace OneButton
         public void FloorMove(float move, float fy)
         {
             state = State.stop;
-            //pos.Y = fy - 30;
+            pos.Y = fy - 30;
             pos.X += move;
             if (pos.X < 64)
                 pos.X = 64;
