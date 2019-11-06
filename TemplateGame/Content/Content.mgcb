@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+
+#begin Alarm.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Alarm.mp3
+
 #begin Alarm_Guitar.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -102,12 +109,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Fui.wav
-
-#begin GatanGoton.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:GatanGoton.mp3
 
 #begin head.png
 /importer:TextureImporter

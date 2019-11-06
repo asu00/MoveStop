@@ -24,7 +24,8 @@ namespace OneButton
         public void Load(ContentManager content)
         {
             bgm[0] = content.Load<Song>("Alarm_Guitar");
-            bgm[1] = content.Load<Song>("GatanGoton");
+
+            bgm[1] = content.Load<Song>("Alarm");
             se[0] = content.Load<SoundEffect>("Die");
             se[1] = content.Load<SoundEffect>("Clear");
             se[2] = content.Load<SoundEffect>("Fui");

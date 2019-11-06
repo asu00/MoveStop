@@ -14,9 +14,10 @@ namespace OneButton
         Texture2D bar;
         readonly Vector2 barPos = new Vector2(8, 32);
         readonly Vector2 barSize = new Vector2(320, 32);
-        const int ITEM_MAX = 5;
+
+        const int ITEM_MAX = 4;
         int ITEM_UP; //一回の回復量
-        const float AC_SPEED = 1; //ゲージ消費量
+        const float AC_SPEED = 1.2f; //ゲージ消費量
         float nowBar;
 
         public Bar() { Init(); }
