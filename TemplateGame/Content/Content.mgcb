@@ -13,29 +13,17 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ashiba.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:ashiba.png
+#begin Alarm.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Alarm.mp3
 
-#begin bar.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:bar.png
+#begin Alarm_Guitar.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Alarm_Guitar.mp3
 
 #begin ber.png
 /importer:TextureImporter
@@ -48,6 +36,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ber.png
+
+#begin botan01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:botan01.wav
 
 #begin button.png
 /importer:TextureImporter
@@ -73,6 +67,18 @@
 /processorParam:TextureFormat=Color
 /build:cha.png
 
+#begin Clear.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Clear.wav
+
+#begin Die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Die.wav
+
 #begin end.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -97,17 +103,11 @@
 /processorParam:TextureFormat=Color
 /build:enemy.png
 
-#begin Floor.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Floor.png
+#begin Fui.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Fui.wav
 
 #begin head.png
 /importer:TextureImporter
@@ -120,6 +120,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:head.png
+
+#begin High.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:High.wav
+
+#begin HIt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:HIt.wav
 
 #begin item.png
 /importer:TextureImporter
@@ -169,18 +181,6 @@
 /processorParam:TextureFormat=Color
 /build:num.png
 
-#begin num.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:num.png
-
 #begin player.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -217,18 +217,6 @@
 /processorParam:TextureFormat=Color
 /build:pos_player.png
 
-#begin posbar.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:posbar.png
-
 #begin posber.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -241,29 +229,11 @@
 /processorParam:TextureFormat=Color
 /build:posber.png
 
-#begin pre.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:pre.png
-
-#begin Prickle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Prickle.png
+#begin Powa.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Powa.wav
 
 #begin retry.png
 /importer:TextureImporter
@@ -300,6 +270,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:thornber.png
+
+#begin thornwall.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:thornwall.png
 
 #begin title.png
 /importer:TextureImporter

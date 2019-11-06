@@ -33,7 +33,6 @@ namespace OneButton
         public void Load(ContentManager content)
         {
             playertex = content.Load<Texture2D>("pos_player");
-            bartex = content.Load<Texture2D>("bar");
             enemyBarTex = content.Load<Texture2D>("pos_enemy");
         }
 
@@ -51,7 +50,7 @@ namespace OneButton
         }
         public void Calcu(Vector2 enemyPos, int enemySize)
         {
-            enemyBarPos.Y = (size.Height+32) * (enemyPos.Y + enemySize) / size.World;
+            enemyBarPos.Y = (size.Height-32) * (enemyPos.Y + enemySize) / size.World;
             if (enemyPos.Y+enemySize <= 0) enemyBarPos.Y = 0;
             if (enemyPos.Y >= size.World) enemyBarPos.Y = size.Height-34;
         }

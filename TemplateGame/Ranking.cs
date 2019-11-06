@@ -66,14 +66,22 @@ namespace OneButton
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 5, (int)playerpos.Y, SIZE_X, SIZE_Y),
+            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 7, (int)playerpos.Y, SIZE_X, SIZE_Y),
                 new Rectangle(playerTime % THOUSAND / HUNDRED * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
-            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 4, (int)playerpos.Y, SIZE_X, SIZE_Y),
+            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 6, (int)playerpos.Y, SIZE_X, SIZE_Y),
                new Rectangle(playerTime % (THOUSAND * TEN) / THOUSAND * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
-            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 3, (int)playerpos.Y, SIZE_X, SIZE_Y),
+
+             sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 5, (int)playerpos.Y, SIZE_X, SIZE_Y),
+               new Rectangle(TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
+            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 4, (int)playerpos.Y, SIZE_X, SIZE_Y),
                 new Rectangle(playerTime % (THOUSAND * HUNDRED) / (THOUSAND * TEN) * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
-            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 2, (int)playerpos.Y, SIZE_X, SIZE_Y),
+            sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 3, (int)playerpos.Y, SIZE_X, SIZE_Y),
                 new Rectangle(playerTime % (THOUSAND * THOUSAND) / (THOUSAND * HUNDRED) * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
+             sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X * 2, (int)playerpos.Y, SIZE_X, SIZE_Y),
+                new Rectangle(TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
             sb.Draw(rankTex, new Rectangle((int)playerpos.X + SIZE_X, (int)playerpos.Y, SIZE_X, SIZE_Y),
                new Rectangle(playerTime % (THOUSAND * THOUSAND * TEN) / (THOUSAND * THOUSAND) * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
             sb.Draw(rankTex, new Rectangle((int)playerpos.X, (int)playerpos.Y, SIZE_X, SIZE_Y),
@@ -82,14 +90,22 @@ namespace OneButton
             for (int i = 0; i < RANKING; i++)
             {
                
-                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 5, (int)pos[i].Y, SIZE_X, SIZE_Y),
+                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 7, (int)pos[i].Y, SIZE_X, SIZE_Y),
                     new Rectangle(rank[i] % THOUSAND / HUNDRED * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
-                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 4, (int)pos[i].Y, SIZE_X, SIZE_Y),
+                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 6, (int)pos[i].Y, SIZE_X, SIZE_Y),
                    new Rectangle(rank[i] % (THOUSAND * TEN) / THOUSAND * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
-                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 3, (int)pos[i].Y, SIZE_X, SIZE_Y),
+
+                 sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 5, (int)pos[i].Y, SIZE_X, SIZE_Y),
+                   new Rectangle(TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
+                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 4, (int)pos[i].Y, SIZE_X, SIZE_Y),
                     new Rectangle(rank[i] % (THOUSAND * HUNDRED) / (THOUSAND * TEN) * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
-                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 2, (int)pos[i].Y, SIZE_X, SIZE_Y),
+                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 3, (int)pos[i].Y, SIZE_X, SIZE_Y),
                     new Rectangle(rank[i] % (THOUSAND * THOUSAND) / (THOUSAND * HUNDRED) * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
+                sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X * 2, (int)pos[i].Y, SIZE_X, SIZE_Y),
+                    new Rectangle(TEN * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
+
                 sb.Draw(rankTex, new Rectangle((int)pos[i].X + SIZE_X, (int)pos[i].Y, SIZE_X, SIZE_Y),
                    new Rectangle(rank[i] % (THOUSAND * THOUSAND * TEN) / (THOUSAND * THOUSAND) * SIZE_X, 0, SIZE_X, SIZE_Y), Color.White);
                 sb.Draw(rankTex, new Rectangle((int)pos[i].X, (int)pos[i].Y, SIZE_X, SIZE_Y),

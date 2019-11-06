@@ -3,12 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 
 namespace OneButton
 {
     class UI
     {
         Size size = new Size();
+        Music music = new Music();
 
         const int NEW_COUNT_30 = 30;
         const int NEW_COUNT_10 = 10;
@@ -61,7 +64,7 @@ namespace OneButton
         }
         public void Scroll(int sc)
         {
-            for (int i = 0; i < 2; i++) if (pos[i].Y - sc <= -wall.Height) pos[i].Y = sc + wall.Height;
+            for (int i = 0; i < 2; i++) if (pos[i].Y - sc <= -size.Height) pos[i].Y = sc + size.Height;
         }
         public bool Scene_Change(bool button)
         {
@@ -81,12 +84,13 @@ namespace OneButton
         }
 
 
-        public bool Title(bool key)  
+        public bool Title(bool key,SoundEffect botan)  
         {
             Moving();
             bool flag = false;
             if (key && y <= 0)
             {
+                botan.Play();
                 x = 0; y = 1;
                 count = NEW_COUNT_10;
             }
@@ -113,19 +117,20 @@ namespace OneButton
                 else count = NEW_COUNT_30;
             }
         }
-        public bool Tutlial(bool key)  
+        public bool Tutlial(bool key,SoundEffect botan)  
         {
             Moving();
             bool flag = false;
             if (key && !tut)
             {
+                botan.Play();
                 tut = true;
                 x = 0; y = 1;
                 count = NEW_COUNT_10;
             }
             if (!tut)
             {
-                if (player.Y + SIZE <= size.Height / 2) player.Y += SPEED;
+                if (player.Y < SIZE * 9) player.Y += SPEED;
                 else y = 0;
             }
             else if (y == 2) player.Y += SPEED;
@@ -173,8 +178,8 @@ namespace OneButton
         public void Draw_Tutlial(SpriteBatch sb)  
         {
             Draw_Anime(sb);
-            sb.Draw(character, player, new Rectangle(SIZE * x, SIZE * y, SIZE, SIZE), Color.White);
             sb.Draw(tutlial, Vector2.Zero, Color.White);
+            sb.Draw(character, player, new Rectangle(SIZE * x, SIZE * y, SIZE, SIZE), Color.White);
             Draw_Back(sb);
         }
         public void Draw_Lose(SpriteBatch sb)
